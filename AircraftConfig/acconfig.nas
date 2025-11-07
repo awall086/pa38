@@ -110,13 +110,13 @@ setlistener("/sim/signals/fdm-initialized", func {
 	init_dlg.close();
 	if (getprop("/systems/acconfig/out-of-date") == 1) {
 		update_dlg.open();
-		print("System: The Piper PA-38 "Tomahawk" is out of date!");
+		print("System: The Piper PA-38 Tomahawk is out of date!");
 	} 
 	mismatch_chk();
 	readSettings();
 	if (getprop("/systems/acconfig/out-of-date") != 1 and getprop("/systems/acconfig/options/revision") != current_revision and getprop("/systems/acconfig/mismatch-reason") == "XX" and !CONFIG.noUpdateCheck) {
 		updated_dlg.open();
-		print("System: The Piper PA-38 "Tomahawk" is up to date!");
+		print("System: The Piper PA-38 Tomahawk is up to date!");
 	}
 	setprop("/systems/acconfig/options/revision", current_revision);
 	writeSettings();	
