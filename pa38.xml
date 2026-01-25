@@ -901,6 +901,46 @@
        </product>
     </function>
 
+	<function name="aero/coefficient/Clalpha">
+        <!-- This causes wing to drop/induces spin on stall -->
+        <description>roll_moment_due_to_alpha</description>
+        <product>
+            <property>aero/qbar-psf</property>
+            <property>metrics/Sw-sqft</property>
+            <property>metrics/bw-ft</property>
+            <value>400</value><!-- This sets the overall strength of the stall spin -->
+            <!-- This sets the direction of the spin, based on current yaw rate.-->
+            <table>
+                <independentVar>velocities/r-aero-rad_sec</independentVar>
+                <tableData>
+                      -24.15             -1
+                      -.0001             -1
+                      0                   0
+                      .0001               1
+                      43.15               1       
+                </tableData>
+            </table>
+            <!-- This sets the amount and direction of spin, based on alpha -->
+            <table>
+                <independentVar lookup="row">aero/alpha-deg</independentVar>
+                <independentVar lookup="column">aero/Re</independentVar>
+                <tableData>
+					0     2000000     5000000   10000000    20000000
+					-180.0    0.0   -0.00065    -0.0010   -0.00065    -0.000065                 
+                    -24.0     0.0   -0.00025    -0.0002   -0.00020    -0.000020
+                    -20.8     0.0   -0.00010    -0.00015  -0.000100   -0.0000100
+                    -16.8     0.0   -0.000010   -0.000015 -0.0000100  -0.00000100
+                    -15       0      0           0         0           0
+                    0.0     0.0    0.0         0.0       0.0         0.0
+                    15       0      0           0         0           0
+                    16.8     0.0    0.000010    0.000020  0.0000100   0.00000100
+                    20.8     0.0    0.00010     0.00020   0.000100    0.00000100
+                    24       0.0    0.00030     0.00025   0.00030     0.0000025
+                    180      0.0    0.00080     0.0030    0.00085     0.0000085
+                </tableData>
+            </table>
+         </product>
+	</function>
   </axis>
 
  </aerodynamics>
