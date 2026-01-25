@@ -1168,7 +1168,7 @@
     <type>rotate</type>
     <object-name>LeftWheelGroup</object-name>
     <property>gear/gear[1]/compression-norm</property>
-    <factor>8.0</factor>
+    <factor>10.0</factor>
     <axis>
         <x>-1</x>
         <y>0</y>
@@ -1213,7 +1213,7 @@
     <type>rotate</type>
     <object-name>RightWheelGroup</object-name>
     <property>gear/gear[2]/compression-norm</property>
-    <factor>8.0</factor>
+    <factor>10.0</factor>
     <axis>
         <x>1</x>
         <y>0</y>
@@ -1763,7 +1763,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>doors_latch</object-name>	
-		<property>sim/model/pa38/doors/latched</property>
+		<property>sim/model/pa38/doors/latch-animation</property>
 		<factor>180</factor>
 		<axis>
 			<x>0</x>
@@ -1809,8 +1809,18 @@
 	<animation>
         <type>pick</type>
         <object-name>L_handle_in</object-name>
-        <object-name>L_handle_out</object-name>
         <visible>true</visible>
+		<condition>
+			<and>
+				<not>
+					<property>sim/model/pa38/doors/latched</property>
+				</not>
+				<equals>
+					<property>/sim/model/door-positions/leftDoor/opened</property>
+					<value>0.0</value>
+				</equals>
+			</and>
+		</condition>
 		<action>
 			<button>0</button>
             <repeatable>false</repeatable>
@@ -1822,13 +1832,69 @@
         <hovered>
             <binding>
                 <command>set-tooltip</command>
-                <tooltip-id>door-handle-l</tooltip-id>
-                <label>Open/Close Left Door</label>
+                <tooltip-id>door-handle-l-in1</tooltip-id>
+                <label>Open Left Door</label>
             </binding>
         </hovered>
     </animation>
 
+	<animation>
+        <type>pick</type>
+        <object-name>L_door_in2</object-name>
+        <visible>true</visible>
+		<condition>
+			<and>
+				<not>
+					<property>sim/model/pa38/doors/latched</property>
+				</not>
+				<equals>
+					<property>/sim/model/door-positions/leftDoor/opened</property>
+					<value>1.0</value>
+				</equals>
+			</and>
+		</condition>
+		<action>
+			<button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>pa38.leftDoor.toggle();</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>door-handle-l-in2</tooltip-id>
+                <label>Close Left Door</label>
+            </binding>
+        </hovered>
+    </animation>
 
+	<animation>
+        <type>pick</type>
+        <object-name>L_handle_out</object-name>
+        <visible>true</visible>
+		<condition>
+			<not>
+				<property>sim/model/pa38/doors/latched</property>
+			</not>
+		</condition>
+		<action>
+			<button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>pa38.leftDoor.toggle();</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>door-handle-l-in1</tooltip-id>
+                <label>Open/Close Left Door</label>
+            </binding>
+        </hovered>
+    </animation>
 
     <animation>
         <type>rotate</type>
@@ -1922,8 +1988,76 @@
 	<animation>
         <type>pick</type>
         <object-name>R_handle_in</object-name>
+        <visible>true</visible>
+		<condition>
+			<and>
+				<not>
+					<property>sim/model/pa38/doors/latched</property>
+				</not>
+				<equals>
+					<property>/sim/model/door-positions/rightDoor/opened</property>
+					<value>0.0</value>
+				</equals>
+			</and>
+		</condition>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>pa38.rightDoor.toggle();</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>door-handle-r-in1</tooltip-id>
+                <label>Open Right Door</label>
+            </binding>
+        </hovered>
+    </animation>
+
+	<animation>
+        <type>pick</type>
+        <object-name>R_door_in2</object-name>
+        <visible>true</visible>
+		<condition>
+			<and>
+				<not>
+					<property>sim/model/pa38/doors/latched</property>
+				</not>
+				<equals>
+					<property>/sim/model/door-positions/rightDoor/opened</property>
+					<value>1.0</value>
+				</equals>
+			</and>
+		</condition>
+        <action>
+            <button>0</button>
+            <repeatable>false</repeatable>
+            <binding>
+                <command>nasal</command>
+                <script>pa38.rightDoor.toggle();</script>
+            </binding>
+        </action>
+        <hovered>
+            <binding>
+                <command>set-tooltip</command>
+                <tooltip-id>door-handle-r-in2</tooltip-id>
+                <label>Close Right Door</label>
+            </binding>
+        </hovered>
+    </animation>
+	
+	<animation>
+        <type>pick</type>
         <object-name>R_handle_out</object-name>
         <visible>true</visible>
+		<condition>
+			<not>
+				<property>sim/model/pa38/doors/latched</property>
+			</not>
+		</condition>
         <action>
             <button>0</button>
             <repeatable>false</repeatable>
@@ -1939,9 +2073,7 @@
                 <label>Open/Close Right Door</label>
             </binding>
         </hovered>
-    </animation>
-
-
+    </animation>	
 
     <animation>
         <type>rotate</type>
@@ -2032,76 +2164,9 @@
 		</axis>
 	</animation>
 
-<!-- Ground Equipment -->
-	
-	<!-- Left safety cone -->
-    <model>
-        <name>coneL</name>
-        <path>Exterior/safety-cone/safety-cone_L.xml</path>
-        <offsets>
-            <x-m>2.47249</x-m>
-            <y-m>-5.55523</y-m>
-            <z-m>-1.2089</z-m>
-        </offsets>
-    </model>
-
-	<!-- Right safety cone -->
-    <model>
-        <name>coneR</name>
-        <path>Exterior/safety-cone/safety-cone_R.xml</path>
-        <offsets>
-            <x-m>2.47249</x-m>
-            <y-m> 5.55523</y-m>
-            <z-m>-1.2089</z-m>
-        </offsets>
-    </model>
-
-	<!-- Nose wheel chocks -->
-    <model>
-        <name>NWchocks</name>
-        <path>Exterior/chocks/NWchocks.xml</path>
-        <offsets>
-            <x-m>0.997244</x-m>
-            <y-m> -0.009805</y-m>
-            <z-m>-1.21513</z-m>
-        </offsets>
-    </model>
-	
-	<!-- Left wheel chocks -->
-    <model>
-        <name>LWchocks</name>
-        <path>Exterior/chocks/LWchocks.xml</path>
-        <offsets>
-            <x-m>2.46016</x-m>
-            <y-m>-1.29861</y-m>
-            <z-m>-1.23694</z-m>
-        </offsets>
-    </model>
-	
-	<!-- Right wheel chocks -->
-    <model>
-        <name>RWchocks</name>
-        <path>Exterior/chocks/RWchocks.xml</path>
-        <offsets>
-            <x-m>2.46016</x-m>
-            <y-m>1.30438</y-m>
-            <z-m>-1.23694</z-m>
-        </offsets>
-    </model>
-
     <!-- Towbar -->
     <model>
         <path>Exterior/towbar/towbar.xml</path>
-		<offsets>
-			<x-m>0.0</x-m>
-			<y-m>0.0</y-m>
-			<z-m>0.0</z-m>
-        </offsets>
-    </model>
-
-    <!-- external power -->
-    <model>
-        <path>Exterior/external-power/external-power.xml</path>
 		<offsets>
 			<x-m>0.0</x-m>
 			<y-m>0.0</y-m>
@@ -2147,12 +2212,16 @@
                      is what we want, but this behavior is error-prone.
                 -->
                 <not-equals>
-                    <property>sim/current-view/name</property>
-                    <value>Cockpit View</value>
+                    <property>sim/current-view/view-number</property>
+                    <value>0</value>
                 </not-equals>
                 <not-equals>
-                    <property>sim/current-view/name</property>
-                    <value>IFR Training View</value>
+                    <property>sim/current-view/view-number</property>
+                    <value>9</value>
+                </not-equals>
+                <not-equals>
+                    <property>sim/current-view/view-number</property>
+                    <value>10</value>
                 </not-equals>
                 <not>
                     <property>sim/walker/outside</property>
@@ -2170,12 +2239,16 @@
         <condition>
             <and>
                 <not-equals>
-                    <property>sim/current-view/name</property>
-                    <value>Cockpit View</value>
-                </not-equals> 
-				<not-equals>
-                    <property>sim/current-view/name</property>
-                    <value>Cockpit Right Seat View</value>
+                    <property>sim/current-view/view-number</property>
+                    <value>0</value>
+                </not-equals>
+                <not-equals>
+                    <property>sim/current-view/view-number</property>
+                    <value>9</value>
+                </not-equals>
+                <not-equals>
+                    <property>sim/current-view/view-number</property>
+                    <value>10</value>
                 </not-equals>
                 <property>pax/co-pilot/present</property>
                 <property>sim/model/occupants</property>

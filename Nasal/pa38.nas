@@ -10,23 +10,23 @@ var autostart = func (msg=1) {
     }
 
     # Filling fuel tanks
-    setprop("/fdm/jsbsim/propulsion/tank[1]/collector-valve", 1);
-    setprop("/fdm/jsbsim/propulsion/tank[2]/collector-valve", 1);
+#    setprop("/fdm/jsbsim/propulsion/tank[1]/collector-valve", 1);
+#    setprop("/fdm/jsbsim/propulsion/tank[2]/collector-valve", 1);
 	
 
     # Setting levers and switches for startup
     setprop("/controls/switches/magnetos", 3);
 	setprop("/controls/fuel/fuel-selector", 1);
-    setprop("/controls/engines/engine/throttle", 0.2);
-    setprop("/controls/engines/engine/mixture", 0.95);
-    setprop("/controls/flight/elevator-trim", 0.2);
+    setprop("/controls/engines/engine/throttle", 0.1);
+    setprop("/controls/engines/engine/mixture", 1.00);
+    setprop("/controls/flight/elevator-trim", -0.05);
     setprop("/controls/switches/master-bat", 1);
     setprop("/controls/switches/master-alt", 1);
 	setprop("/controls/engines/engine/primer", 3);
 
     # Setting lights
-    setprop("/controls/lighting/nav-lights-switch", 1);
-    setprop("/controls/lighting/strobe-switch", 1);
+    setprop("/controls/lighting/panel-lights", 0.0);
+    setprop("/controls/lighting/anti-coll-switch", 1);
 
     # Setting flaps to 0
     setprop("/controls/flight/flaps", 0.0);
@@ -52,6 +52,169 @@ var update_pax = func {
     setprop("/payload/pax-state", state);
 };
 
+############################################
+# Static objects: Place
+############################################
+
+var StaticModel = {
+    new: func (name, file) {
+        var m = {
+            parents: [StaticModel],
+            model: nil,
+            model_file: file,
+			object_name: name
+        };
+
+        setlistener("/sim/" ~ name ~ "/enable", func (node) {
+            if (node.getBoolValue()) {
+                m.add();
+            }
+            else {
+                m.remove();
+            }
+        });
+
+        return m;
+    },
+
+    add: func {
+        var manager = props.globals.getNode("/models", 1);
+        var i = 0;
+        for (; 1; i += 1) {
+            if (manager.getChild("model", i, 0) == nil) {
+                break;
+            }
+        }
+        var position = geo.aircraft_position().set_alt(getprop("/position/ground-elev-m"));
+        me.model = geo.put_model(me.model_file, position, getprop("/orientation/heading-deg"));
+    },
+
+    remove: func {
+        if (me.model != nil) {
+            me.model.remove();
+            me.model = nil;
+        }
+    }
+};
+
+StaticModel.new("coneR", "Aircraft/pa38/Models/Exterior/safety-cone/safety-cone_R.xml");
+StaticModel.new("coneL", "Aircraft/pa38/Models/Exterior/safety-cone/safety-cone_L.xml");
+StaticModel.new("gpu", "Aircraft/pa38/Models/Exterior/external-power/external-power.xml");
+
+# external electrical disconnect when groundspeed higher than 0.1ktn (replace later with distance less than 0.01...)
+var ad_timer = maketimer(0.1, func {
+    groundspeed = getprop("/velocities/groundspeed-kt") or 0;
+    if (groundspeed > 0.1) {
+        setprop("/controls/electric/external-power", "false");
+    }
+});
+ad_timer.start();
+
+#following ground equipement stuff placing was only possible by the help of the work by: Melchior Franz, Anders Gidenstam, Detelf Faber, onox. Thanks!
+
+#wheel chocks======================================================
+
+var chocks001_model = {
+       index:   0,
+       add:   func {
+  var manager = props.globals.getNode("/models", 1);
+                var i = 0;
+                for (; 1; i += 1)
+                   if (manager.getChild("model", i, 0) == nil)
+                      break;
+
+		var chocks001 = geo.aircraft_position().set_alt(
+				props.globals.getNode("/position/ground-elev-m").getValue());
+
+		geo.put_model("Aircraft/pa38/Models/Exterior/chocks/NWchocks.ac", chocks001,
+				props.globals.getNode("/orientation/heading-deg").getValue());
+					 me.index = i;
+          },
+
+       remove:   func {
+                #print("chocks001_model.remove");
+             props.globals.getNode("/models", 1).removeChild("model", me.index);
+          },
+};
+
+var init_common = func {
+	setlistener("/sim/chocks001/enable", func(n) {
+		if (n.getValue()) {
+				chocks001_model.add();
+		} else  {
+			chocks001_model.remove();
+		}
+	});
+}
+settimer(init_common,0);
+
+var chocks002_model = {
+       index:   0,
+       add:   func {
+  var manager = props.globals.getNode("/models", 1);
+                var i = 0;
+                for (; 1; i += 1)
+                   if (manager.getChild("model", i, 0) == nil)
+                      break;
+
+		var chocks002 = geo.aircraft_position().set_alt(
+				props.globals.getNode("/position/ground-elev-m").getValue());
+
+		geo.put_model("Aircraft/pa38/Models/Exterior/chocks/LWchocks.ac", chocks002,
+				props.globals.getNode("/orientation/heading-deg").getValue());
+					 me.index = i;
+          },
+
+       remove:   func {
+                #print("chocks002_model.remove");
+             props.globals.getNode("/models", 1).removeChild("model", me.index);
+          },
+};
+
+var init_common = func {
+	setlistener("/sim/chocks002/enable", func(n) {
+		if (n.getValue()) {
+				chocks002_model.add();
+		} else  {
+			chocks002_model.remove();
+		}
+	});
+}
+settimer(init_common,0);
+
+var chocks003_model = {
+       index:   0,
+       add:   func {
+  var manager = props.globals.getNode("/models", 1);
+                var i = 0;
+                for (; 1; i += 1)
+                   if (manager.getChild("model", i, 0) == nil)
+                      break;
+
+		var chocks003 = geo.aircraft_position().set_alt(
+				props.globals.getNode("/position/ground-elev-m").getValue());
+
+		geo.put_model("Aircraft/pa38/Models/Exterior/chocks/RWchocks.ac", chocks003,
+				props.globals.getNode("/orientation/heading-deg").getValue());
+					 me.index = i;
+          },
+
+       remove:   func {
+                #print("chocks003_model.remove");
+             props.globals.getNode("/models", 1).removeChild("model", me.index);
+          },
+};
+
+var init_common = func {
+	setlistener("/sim/chocks003/enable", func(n) {
+		if (n.getValue()) {
+				chocks003_model.add();
+		} else  {
+			chocks003_model.remove();
+		}
+	});
+}
+settimer(init_common,0);
 
 #Transponder ident light
 var ident_status = maketimer(10.0, func {

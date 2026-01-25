@@ -5,12 +5,9 @@
     <path>safety-cone.ac</path>
     <nopreview/>
 
-	<animation>
-		<type>select</type>
-		<object-name>safety-cone</object-name>
-		<condition>
-			<property>sim/model/pa38/cone_L</property>
-		</condition>
-	</animation>
+    <offsets>
+        <x-m>2.47249</x-m>
+        <y-m>-5.95523</y-m>
+    </offsets>
 
 </PropertyList>

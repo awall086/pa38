@@ -48,16 +48,14 @@
    <vtailarea unit="FT2">   11.93 </vtailarea>
    <vtailarm  unit="FT" >   11.00 </vtailarm>
    <location name="AERORP" unit="IN">
-     <x> 126.72 </x>
+     <x> 75.72 </x>
      <y>   0.00 </y>
-     <z>   -3.00 </z>
+     <z>   0.00 </z>
    </location>
    <location name="EYEPOINT" unit="IN">
-     <x>  56.72 </x>
-<!--     <y> -18.00 </y> -->
-     <y>   0.00 </y>
-<!--     <z>  45.00 </z> -->
-     <z>  8.00 </z>
+     <x> 56.72 </x>
+     <y>  0.00 </y>
+     <z>  7.00 </z>
    </location>
    <location name="VRP" unit="IN">
      <x>0</x>
@@ -67,9 +65,6 @@
  </metrics>
 
  <mass_balance>
-<!--   <ixx unit="SLUG*FT2">       712 </ixx>
-   <iyy unit="SLUG*FT2">       530 </iyy>
-   <izz unit="SLUG*FT2">      1168 </izz> -->
 	<ixx unit="SLUG*FT2">1070</ixx>
 	<iyy unit="SLUG*FT2">1249</iyy>
 	<izz unit="SLUG*FT2">2312</izz>
@@ -78,15 +73,15 @@
    <iyz unit="SLUG*FT2">   0 </iyz>
    <emptywt unit="LBS"> 1128 </emptywt>
    <location name="CG" unit="IN">
-     <x> 126.72 </x>
+     <x> 75.12 </x>
      <y>   0.00 </y>
-     <z>  -3.00 </z>
+     <z>  -9.42 </z>
    </location>
 
     <pointmass name="Pilot">
         <weight unit="LBS"> 176.37 </weight>
         <location name="POINTMASS" unit="IN">
-            <x> 124 </x>
+            <x> 88 </x>
             <y> -18 </y>
             <z> -10.03 </z>
         </location>
@@ -95,7 +90,7 @@
     <pointmass name="Co-Pilot">
         <weight unit="LBS"> 176.37 </weight>
         <location name="POINTMASS" unit="IN">
-            <x> 124 </x>
+            <x> 88 </x>
             <y> 18 </y>
             <z> -10.03 </z>
         </location>
@@ -105,7 +100,7 @@
         <description> Medium </description>
         <weight unit="LBS"> 0 </weight>
         <location name="POINTMASS" unit="IN">
-            <x> 148.82 </x>
+            <x> 118.82 </x>
             <y>   0.00 </y>
             <z>  -7.23 </z>
         </location>
@@ -117,9 +112,9 @@
 
   <contact type="BOGEY" name="NOSE">
    <location unit="IN">
-     <x>  67.32 </x>
+     <x>  35.32 </x>
      <y>   0.00 </y>
-     <z> -48.88 </z>
+     <z> -49.88 </z>
    </location>
    <static_friction>  0.72 </static_friction>
    <dynamic_friction> 0.60 </dynamic_friction>
@@ -134,14 +129,14 @@
 
   <contact type="BOGEY" name="LEFT_MAIN">
    <location unit="IN">
-     <x> 129.79 </x>
-     <y> -29.72 </y>
-     <z> -52.08 </z>
+     <x> 92.79 </x>
+     <y> -50.72 </y>
+     <z> -51.58 </z>
    </location>
    <static_friction>  0.43 </static_friction>
    <dynamic_friction> 0.60 </dynamic_friction>
    <rolling_friction> 0.02 </rolling_friction>
-   <spring_coeff unit="LBS/FT">       2700.00 </spring_coeff>
+   <spring_coeff unit="LBS/FT">       2000.00 </spring_coeff>
    <damping_coeff unit="LBS/FT/SEC">  1500.00 </damping_coeff>
    <damping_coeff_rebound unit="LBS/FT/SEC">10</damping_coeff_rebound>
    <max_steer unit="DEG">0</max_steer>
@@ -151,14 +146,14 @@
 
   <contact type="BOGEY" name="RIGHT_MAIN">
    <location unit="IN">
-     <x> 129.79 </x>
-     <y>  29.72 </y>
-     <z> -52.08 </z>
+     <x> 92.79 </x>
+     <y>  50.72 </y>
+     <z> -51.58 </z>
    </location>
    <static_friction>  0.43 </static_friction>
    <dynamic_friction> 0.60 </dynamic_friction>
    <rolling_friction> 0.02 </rolling_friction>
-   <spring_coeff unit="LBS/FT">       2700.00 </spring_coeff>
+   <spring_coeff unit="LBS/FT">       2000.00 </spring_coeff>
    <damping_coeff unit="LBS/FT/SEC">  1500.00 </damping_coeff>
    <damping_coeff_rebound unit="LBS/FT/SEC">10</damping_coeff_rebound>
    <max_steer unit="DEG">0</max_steer>
@@ -168,7 +163,7 @@
 
   <contact type="STRUCTURE" name="LEFT_WING">
     <location unit="IN">
-     <x> 126.72 </x>
+     <x> 113.72 </x>
      <y> -17.00 </y>
      <z>   2.60 </z>
     </location>
@@ -180,7 +175,7 @@
 
   <contact type="STRUCTURE" name="RIGHT_WING">
     <location unit="IN">
-     <x> 126.72 </x>
+     <x> 113.72 </x>
      <y>  17.00 </y>
      <z>   2.60 </z>
     </location>
@@ -204,7 +199,7 @@
 
   <contact type="STRUCTURE" name="TAIL">
     <location unit="IN">
-     <x> 226.42 </x>
+     <x> 216.42 </x>
      <y>   0.00 </y>
      <z>   8.60 </z>
     </location>
@@ -224,7 +219,7 @@
      <sense> 1 </sense>
 	 <p_factor>5</p_factor>	 
      <location unit="IN">
-       <x>  30.00 </x>
+       <x>  12.00 </x>
        <y>   0.00 </y>
        <z>   -4.00 </z>
      </location>
@@ -238,7 +233,7 @@
 
 	<tank type="FUEL" number="0"> <!-- Engine Pipe -->
 		<location unit="IN">
-			<x>   36.00 </x>
+			<x>   26.00 </x>
 			<y>    0.0 </y>
 			<z>    0.0 </z>
 		</location>
@@ -250,8 +245,8 @@
 
 	<tank type="FUEL" number="1"> <!-- Left Wing Tank -->
 		<location unit="IN">
-			<x> 126.72 </x>
-			<y>   -7.00 </y>
+			<x> 93.72 </x>
+			<y>   -87.00 </y>
 			<z>  -6.60 </z>
 		</location>
 		<capacity unit="LBS"> 96.30 </capacity>
@@ -262,8 +257,8 @@
 
 	<tank type="FUEL" number="2"> <!-- Right Wing Tank -->
 		<location unit="IN">
-			<x> 126.72 </x>
-			<y>   7.00 </y>
+			<x> 93.72 </x>
+			<y>	87.00 </y>
 			<z>  -6.60 </z>
 		</location>
 		<capacity unit="LBS"> 96.30 </capacity>
@@ -323,8 +318,8 @@
         </channel>
 
 
- <!-- following code by Jonathan Redpath aka legoboyvdlp-->
-<channel name="NWS">
+		<!-- following code by Jonathan Redpath aka legoboyvdlp-->
+		<channel name="NWS">
             <switch name="fcs/nws-enabled">
                 <default value="0"/>
                 <test logic="OR" value="1"> <!-- NWS mechanically centered if gear is fully extended -->
@@ -411,7 +406,7 @@
                     gear/unit[0]/WOW eq 1
                 </test>
             </switch>
-</channel>
+		</channel>
 
 
   <channel name="Pitch">
@@ -618,8 +613,14 @@
        <product>
            <property>aero/qbar-psf</property>
            <property>metrics/Sw-sqft</property>
-           <property>fcs/flap-pos-deg</property>
-           <value> 0.01333 </value>
+			<table>
+				<independentVar>fcs/flap-pos-deg</independentVar>
+				<tableData>
+					0	0.00
+					17	0.08
+					34	0.28
+				</tableData>
+			</table> 
        </product>
     </function>
 
@@ -688,7 +689,7 @@
            <property>aero/qbar-psf</property>
            <property>metrics/Sw-sqft</property>
            <property>fcs/flap-pos-deg</property>
-           <value> 0.00100 </value>
+           <value> 0.00300 </value>
          </product>
     </function>
 
@@ -806,7 +807,7 @@
            <property>metrics/Sw-sqft</property>
            <property>metrics/cbarw-ft</property>
            <property>aero/alpha-rad</property>
-           <value>-0.5</value>
+           <value>-0.5786</value>
        </product>
     </function>
 
@@ -823,7 +824,7 @@
               0.0     -1.100
               2.0     -0.275
             </tableData>
-          </table>
+			</table>
        </product>
     </function>
 
@@ -862,7 +863,7 @@
            <property>metrics/Sw-sqft</property>
            <property>metrics/bw-ft</property>
            <property>aero/beta-rad</property>
-           <value>0.12</value>
+           <value>0.08</value>
        </product>
     </function>
 
@@ -921,6 +922,8 @@
         </force>
 
  </external_reactions>
+
+	<system file="pa38-engine"/>
 
 </fdm_config>
 

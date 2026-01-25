@@ -6,7 +6,7 @@
 # Adapted to Piper PA-38 by Adrian Fernandez (awall86)
 
 var CONFIG = {
-	noUpdateCheck: 0, # Disable ACCONFIG update checks
+	noUpdateCheck: 1, # Disable ACCONFIG update checks
 };
 
 var spinning = maketimer(0.10, func {

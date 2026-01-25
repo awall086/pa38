@@ -102,8 +102,7 @@
             <y>  0 </y>
             <z>  0 </z>
         </axis>
-    </animation>
-    
+    </animation>   
     <animation>
         <type>knob</type>
         <object-name>Knob_digit_1000</object-name>
@@ -123,7 +122,7 @@
             <binding>
                 <command>property-adjust</command>
                 <property>instrumentation/transponder/inputs/digit[3]</property>
-                <factor>-1.0</factor>
+                <factor>1.0</factor>
                 <min>0</min>
                 <max>8</max>
                 <wrap>true</wrap>
@@ -183,7 +182,7 @@
 			<binding>
 				<command>property-adjust</command>
 				<property>instrumentation/transponder/inputs/digit[2]</property>
-                <factor>-1.0</factor>
+                <factor>1.0</factor>
                 <min>0</min>
                 <max>8</max>
                 <wrap>true</wrap>
@@ -243,7 +242,7 @@
 			<binding>
 				<command>property-adjust</command>
 				<property>instrumentation/transponder/inputs/digit[1]</property>
-                <factor>-1.0</factor>
+                <factor>1.0</factor>
                 <min>0</min>
                 <max>8</max>
                 <wrap>true</wrap>
@@ -303,7 +302,7 @@
 			<binding>
 			<command>property-adjust</command>
 			<property>instrumentation/transponder/inputs/digit[0]</property>
-                <factor>-1.0</factor>
+                <factor>1.0</factor>
                 <min>0</min>
                 <max>8</max>
                 <wrap>true</wrap>

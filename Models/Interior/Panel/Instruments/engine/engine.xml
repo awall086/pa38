@@ -92,7 +92,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>alt_amps_needle</object-name>
-		<property>systems/pa38/electrical/amps</property>
+		<property>systems/electrical/amps</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>

@@ -43,11 +43,11 @@
         <input>
             <and>
                 <less-than>
-                    <property>/systems/pa38/electrical/outputs/nav[0]</property>
+                    <property>/systems/electrical/outputs/nav[0]</property>
                     <value>14.5</value>
                 </less-than>
                 <greater-than>
-                    <property>/systems/pa38/electrical/outputs/nav[0]</property>
+                    <property>/systems/electrical/outputs/nav[0]</property>
                     <value>10.0</value>
                 </greater-than>
             </and>
@@ -106,6 +106,23 @@
     </filter>
 
     <filter>
+        <name>GPS Night Mode</name>
+        <type>gain</type>
+        <input>
+            <condition>
+                <property>/instrumentation/garmin196/status</property>
+            </condition>
+            <property>/controls/lighting/gps-norm</property>
+        </input>
+        <input>
+            <value>0.0</value>
+        </input>
+        <output>
+            <property>/instrumentation/garmin196/lite</property>
+        </output>
+    </filter>
+	
+    <filter>
         <name>Controls Primer Lever</name>
         <type>noise-spike</type>
         <max-rate-of-change>1.1</max-rate-of-change>
@@ -121,6 +138,219 @@
         </input>
         <output>
             <property>/sim/model/pa38/cockpit/primer-lever-animation</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>Controls Door latch</name>
+        <type>noise-spike</type>
+        <max-rate-of-change>2.00</max-rate-of-change>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>sim/model/pa38/doors/latched</property>
+        </input>
+        <output>
+            <property>sim/model/pa38/doors/latch-animation</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>Controls Carb Heater</name>
+        <type>noise-spike</type>
+        <max-rate-of-change>1.10</max-rate-of-change>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/controls/anti-ice/engine/carb-heat</property>
+        </input>
+        <output>
+            <property>sim/model/pa38/carb-heat-animation</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>Controls fuel selector</name>
+        <type>noise-spike</type>
+        <max-rate-of-change>3.0</max-rate-of-change>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/controls/fuel/fuel-selector</property>
+        </input>
+        <output>
+            <property>sim/model/pa38/fuel-selector-animation</property>
+        </output>
+    </filter>
+	
+    <filter>
+        <name>Right door opened</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <or>
+                    <equals>
+                        <property>/sim/model/door-positions/rightDoor/position-norm</property>
+                        <value>1.0</value>
+                    </equals>
+                    <equals>
+                        <property>/sim/model/door-positions/rightDoor/position-norm</property>
+                        <value>0.0</value>
+                    </equals>
+                </or>
+            </condition>
+        </enable>
+        <input>
+            <condition>
+                <equals>
+                    <property>/sim/model/door-positions/rightDoor/position-norm</property>
+                    <value>1.0</value>
+                </equals>
+            </condition>
+            <value>1.0</value>
+        </input>
+        <input>
+            <condition>
+                <equals>
+                    <property>/sim/model/door-positions/rightDoor/position-norm</property>
+                    <value>0.0</value>
+                </equals>
+            </condition>
+            <value>0.0</value>
+        </input>
+        <output>
+            <property>/sim/model/door-positions/rightDoor/opened</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>Left door opened</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <or>
+                    <equals>
+                        <property>/sim/model/door-positions/leftDoor/position-norm</property>
+                        <value>1.0</value>
+                    </equals>
+                    <equals>
+                        <property>/sim/model/door-positions/leftDoor/position-norm</property>
+                        <value>0.0</value>
+                    </equals>
+                </or>
+            </condition>
+        </enable>
+        <input>
+            <condition>
+                <equals>
+                    <property>/sim/model/door-positions/leftDoor/position-norm</property>
+                    <value>1.0</value>
+                </equals>
+            </condition>
+            <value>1.0</value>
+        </input>
+        <input>
+            <condition>
+                <equals>
+                    <property>/sim/model/door-positions/leftDoor/position-norm</property>
+                    <value>0.0</value>
+                </equals>
+            </condition>
+            <value>0.0</value>
+        </input>
+        <output>
+            <property>/sim/model/door-positions/leftDoor/opened</property>
+        </output>
+    </filter>
+
+    <!-- ================================================================== -->
+    <!-- Max range for doors   -->
+    <!-- ================================================================== -->
+	
+    <filter>
+        <name>Effective range for right door</name>
+        <type>gain</type>
+        <input>
+            <expression>
+                <product>
+                    <property>/sim/model/door-positions/rightDoor/position-norm</property>
+                    <max>
+                        <min>
+                            <difference>
+                                <value>1.0</value>
+                                <product>
+                                    <sum>
+                                        <property>/velocities/airspeed-kt</property>
+                                        <sin>
+                                            <product>
+                                                <value>1.07</value>
+                                                <property>/velocities/airspeed-kt</property>
+                                            </product>
+                                        </sin>
+                                    </sum>
+                                    <value>0.01</value>
+                                </product>
+                            </difference>
+                            <value>1.0</value>
+                        </min>
+                        <value>0.51</value>
+                    </max>
+                </product>
+            </expression>
+        </input>
+        <output>
+            <property>/sim/model/door-positions/rightDoor/position-norm-effective</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>Effective range for left door</name>
+        <type>gain</type>
+        <input>
+            <expression>
+                <product>
+                    <property>/sim/model/door-positions/leftDoor/position-norm</property>
+                    <max>
+                        <min>
+                            <difference>
+                                <value>1.0</value>
+                                <product>
+                                    <sum>
+                                        <property>/velocities/airspeed-kt</property>
+                                        <sin>
+                                            <product>
+                                                <value>1.38</value>
+                                                <property>/velocities/airspeed-kt</property>
+                                            </product>
+                                        </sin>
+                                    </sum>
+                                    <value>0.01</value>
+                                </product>
+                            </difference>
+                            <value>1.0</value>
+                        </min>
+                        <value>0.51</value>
+                    </max>
+                </product>
+            </expression>
+        </input>
+        <output>
+            <property>/sim/model/door-positions/leftDoor/position-norm-effective</property>
         </output>
     </filter>
 

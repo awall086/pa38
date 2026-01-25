@@ -14,8 +14,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>Carb_heat1</object-name>
-		<object-name>Carb_heat2</object-name>
-		<property>/controls/anti-ice/engine/carb-heat</property>
+		<property>/sim/model/pa38/carb-heat-animation</property>
 		<factor>90.0</factor>
 		<axis>
 			<x>0.0</x>
@@ -31,8 +30,7 @@
 
 	<animation>
         <type>pick</type>
-		<object-name>Carb_heat1</object-name>
-		<object-name>Carb_heat2</object-name>		
+		<object-name>Carb_heat1</object-name>		
         <visible>true</visible>
         <action>
             <button>0</button>

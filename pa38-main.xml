@@ -169,13 +169,13 @@ Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
                 <default-field-of-view-deg>75</default-field-of-view-deg>
             </config>
         </view>
-  
+
         <view n="1">
             <config>
                 <target-z-offset-m archive="y" type="double"> 2 </target-z-offset-m>
             </config>
         </view>
-
+		
         <view n="2">
             <config>
                 <target-z-offset-m archive="y" type="double"> 2 </target-z-offset-m>
@@ -205,7 +205,39 @@ Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
                 <target-z-offset-m archive="y" type="double"> 2 </target-z-offset-m>
             </config>
         </view>
-  
+
+        <view n="100">
+		    <name>Lower Panel</name>
+            <type>lookfrom</type>
+            <enabled type="bool">true</enabled>
+            <internal type="bool" archive="y">true</internal>
+            <config>
+				<from-model type="bool">true</from-model>
+                <x-offset-m archive="y" type="double">-0.009375</x-offset-m>
+                <y-offset-m archive="y" type="double">0.155833</y-offset-m>
+                <z-offset-m archive="y" type="double">2.70</z-offset-m>
+                <pitch-offset-deg type="double">-14.75</pitch-offset-deg>
+				<heading-offset-deg type="double">2.8468</heading-offset-deg>
+                <default-field-of-view-deg>33</default-field-of-view-deg>
+            </config>
+        </view>
+
+        <view n="101">
+		    <name>Radio Stack</name>
+            <type>lookfrom</type>
+            <enabled type="bool">true</enabled>
+            <internal type="bool" archive="y">true</internal>
+            <config>
+				<from-model type="bool">true</from-model>
+                <x-offset-m archive="y" type="double">-0.08359</x-offset-m>
+                <y-offset-m archive="y" type="double">0.54610</y-offset-m>
+                <z-offset-m archive="y" type="double">2.70</z-offset-m>
+                <pitch-offset-deg type="double">-21.125</pitch-offset-deg>
+				<heading-offset-deg type="double">345.875</heading-offset-deg>
+                <default-field-of-view-deg>25</default-field-of-view-deg>
+            </config>
+        </view>
+		
         <systems>
             <property-rule n="100">
 				<path archive="y">Aircraft/pa38/Systems/engine.xml</path>
@@ -250,6 +282,10 @@ Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
  
     </sim>
 
+    <input>
+        <keyboard include="pa38-keyboard.xml"/>
+    </input>
+	
     <controls>
 
         <flight>
@@ -355,12 +391,13 @@ Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
 			<file>Nasal/liveries.nas</file>
             <file>Nasal/engine.nas</file>
             <file>Nasal/doors.nas</file>
+			<file>Nasal/views.nas</file>
         </pa38>
         <electrical>
             <file>Nasal/electrical.nas</file>
         </electrical>
 		<garmin196>
-			<file>Nasal/garmin196.nas</file>
+			<file>Aircraft/pa38/Models/Interior/Panel/Instruments/garmin196/garmin196.nas</file>
 		</garmin196>
         <acconfig>
             <file>Aircraft/pa38/AircraftConfig/acconfig.nas</file>
@@ -371,11 +408,9 @@ Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
     </nasal>  
  
      <systems>
-        <pa38>
-            <electrical>
-                <battery-status type="double">100.0</battery-status>
-            </electrical>
-        </pa38>
+        <electrical>
+            <battery-status type="double">100.0</battery-status>
+        </electrical>
     </systems>
  
     <payload>
@@ -425,7 +460,7 @@ Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
         </comm>
 
         <garmin196>
-            <texture-file>Aircraft/pa38/Models/panel/instruments/garmin196/coque.png</texture-file>
+            <texture-file>Aircraft/pa38/Models/Interior/Panel/Instruments/garmin196/coque.png</texture-file>
         </garmin196>
 
     </instrumentation>

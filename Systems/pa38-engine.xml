@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+
+<!--
+
+	Original from c172p adapted to pa38 by Adrián Fernández (awall86)
+
+    Copyright (c) 2015 Gilberto Agostinho
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+-->
+
+<system name="engine">
+
+    <channel name="rpm drop">
+
+        <fcs_function name="Carb heat on causes RPM drop on engine">
+            <function>
+				<ifthen>
+					<property>/controls/anti-ice/engine[0]/carb-heat</property>
+					<value>4.9652548712</value>
+					<value>0.1518538786</value>
+				</ifthen>
+			</function>
+            <output>/sim/model/pa38/drop-factor-carb-heat</output>
+        </fcs_function>
+	
+        <fcs_function name="single magneto selection causes RPM drop on engine">
+            <function>
+                <ifthen>
+					<or>
+						<eq>
+							<property>/controls/switches/magnetos</property>
+							<value>1</value>
+						</eq>
+						<eq>
+							<property>/controls/switches/magnetos</property>
+							<value>2</value>
+						</eq>
+					</or>
+                    <value>0.7645878966</value>
+                    <value>0.1518538786</value>
+                </ifthen>
+			</function>
+            <output>/sim/model/pa38/drop-factor-magnetos</output>
+        </fcs_function>
+
+        <fcs_function name="real RPM drop on engine">
+            <function>
+				<max>
+					<property>/sim/model/pa38/drop-factor-magnetos</property>
+					<property>/sim/model/pa38/drop-factor-carb-heat</property>
+				</max>
+			</function>
+            <output>/fdm/jsbsim/propulsion/engine[0]/air-intake-impedance-factor</output>
+        </fcs_function>
+	
+    </channel>
+	
+</system>

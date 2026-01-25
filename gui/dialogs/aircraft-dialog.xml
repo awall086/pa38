@@ -49,7 +49,7 @@
 			<halign>left</halign>
 			<label>Place left safety cone</label>
 			<live>true</live>
-			<property>/sim/model/pa38/cone_L</property>
+			<property>/sim/coneL/enable</property>
 			<enable>
 				<less-than>
 					<property>velocities/groundspeed-kt</property>
@@ -58,7 +58,7 @@
 			</enable>
 			<binding>
 				<command>property-toggle</command>
-				<property>/sim/model/pa38/cone_L</property>
+				<property>/sim/coneL/enable</property>
 			</binding>
 			<binding>
 				<command>dialog-update</command>
@@ -69,7 +69,7 @@
 			<halign>left</halign>
 			<label>Place right safety cone</label>
 			<live>true</live>
-			<property>/sim/model/pa38/cone_R</property>
+			<property>/sim/coneR/enable</property>
 			<enable>
 				<less-than>
 					<property>velocities/groundspeed-kt</property>
@@ -78,7 +78,7 @@
 			</enable>
 			<binding>
 				<command>property-toggle</command>
-				<property>/sim/model/pa38/cone_R</property>
+				<property>/sim/coneR/enable</property>
 			</binding>
 			<binding>
 				<command>dialog-update</command>
@@ -92,66 +92,114 @@
 		<layout>hbox</layout>
 		<padding>6</padding>
 		<checkbox>
-			<halign>left</halign>
-			<label>Place nose wheel chocks</label>
-			<live>true</live>
-			<property>/sim/model/pa38/chocks/NWchocks</property>
+            <halign>left</halign>
+            <label>Place nose wheel chock</label>
+            <live>true</live>
+			<property>/sim/chocks001/enable</property>
 			<enable>
-				<less-than>
-					<property>velocities/groundspeed-kt</property>
-					<value>0.1</value>
-				</less-than>
+                <less-than>
+                    <property>velocities/groundspeed-kt</property>
+                    <value>0.1</value>
+                </less-than>
 			</enable>
-			<binding>
+            <binding>
 				<command>property-toggle</command>
-				<property>/sim/model/pa38/chocks/NWchocks</property>
-			</binding>
+				<property>/sim/chocks001/enable</property>
+            </binding>
 			<binding>
-				<command>dialog-update</command>
-			</binding>
-		</checkbox>	
-
-		<checkbox>
-			<halign>left</halign>
-			<label>Place left wheel chocks</label>
-			<live>true</live>
-			<property>/sim/model/pa38/chocks/LWchocks</property>
-			<enable>
-				<less-than>
-					<property>velocities/groundspeed-kt</property>
-					<value>0.1</value>
-				</less-than>
-			</enable>
-			<binding>
-				<command>property-toggle</command>
-				<property>/sim/model/pa38/chocks/LWchocks</property>
-			</binding>
-			<binding>
-				<command>dialog-update</command>
-			</binding>
+                <command>dialog-update</command>
+            </binding>
 		</checkbox>
-
+	
 		<checkbox>
-			<halign>left</halign>
-			<label>Place right wheel chocks</label>
-			<live>true</live>
-			<property>/sim/model/pa38/chocks/RWchocks</property>
+            <halign>center</halign>
+            <label>Place left wheel chock</label>
+            <live>true</live>
+			<property>/sim/chocks002/enable</property>
 			<enable>
-				<less-than>
-					<property>velocities/groundspeed-kt</property>
-					<value>0.1</value>
-				</less-than>
+                <less-than>
+                    <property>velocities/groundspeed-kt</property>
+                    <value>0.1</value>
+                </less-than>
 			</enable>
+            <binding>
+                <command>property-toggle</command>
+				<property>/sim/chocks002/enable</property>
+            </binding>
 			<binding>
-				<command>property-toggle</command>
-				<property>/sim/model/pa38/chocks/RWchocks</property>
-			</binding>
+                <command>dialog-update</command>
+            </binding>
+		</checkbox>
+	
+		<checkbox>
+            <halign>right</halign>
+            <label>Place right wheel chock</label>
+			<live>true</live>
+			<property>/sim/chocks003/enable</property>
+			<enable>
+                <less-than>
+                <property>velocities/groundspeed-kt</property>
+                <value>0.1</value>
+                </less-than>
+			</enable>
+            <binding>
+                <command>property-toggle</command>
+				<property>/sim/chocks003/enable</property>
+            </binding>
 			<binding>
 				<command>dialog-update</command>
-			</binding>
+            </binding>
 		</checkbox>
 	</group>	
-    
+	
+	<hrule/>
+ 
+	<group>
+		<layout>hbox</layout>
+		<padding>6</padding>
+            <checkbox>
+                <halign>left</halign>
+                <label>Place Ground Power Unit</label>
+                <live>true</live>
+                <property>/sim/gpu/enable</property>
+                <enable>
+                    <and>
+                        <less-than>
+                            <property>velocities/groundspeed-kt</property>
+                            <value>0.1</value>
+                        </less-than>
+                        <not>
+                            <property>/controls/electric/external-power</property>
+                        </not>
+                    </and>
+                </enable>
+                <binding>
+                    <command>property-toggle</command>
+                    <property>/sim/gpu/enable</property>
+                </binding>
+                <binding>
+                    <command>dialog-update</command>
+                </binding>
+            </checkbox>
+			<checkbox>
+				<halign>left</halign>
+				<label>Connect GPU to aircraft</label>
+				<live>true</live>
+				<property>/controls/electric/external-power</property>
+				<enable>
+					<property>/sim/gpu/enable</property>
+				</enable>
+				<binding>
+					<command>property-toggle</command>
+					<property>/controls/electric/external-power</property>
+				</binding>
+				<binding>
+					<command>dialog-update</command>
+				</binding>
+			</checkbox> 
+										
+	</group>
+
     <hrule/>
 
 	<group>
@@ -189,32 +237,5 @@
                 </enable>
             </checkbox>
 	</group>
-    
-	<hrule/>
- 
-	<group>
-		<layout>vbox</layout>
-		<padding>6</padding>
-		<checkbox>
-			<halign>left</halign>
-			<label>Conect external power unit</label>
-			<property>/controls/electric/external-power</property>
-			<live>true</live>
-			<binding>
-				<command>property-toggle</command>
-				<property>/controls/electric/external-power</property>
-			</binding>
-			<binding>
-				<command>dialog-update</command>
-			</binding>
-            <enable>
-                <property>gear/gear[0]/wow</property>
-                <less-than>
-                    <property>velocities/groundspeed-kt</property>
-                    <value>1.0</value>
-                </less-than>
-            </enable>
-		</checkbox>
-	</group>
-
+	
 </PropertyList>

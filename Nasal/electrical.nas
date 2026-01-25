@@ -2,7 +2,7 @@
 var electricsystem=func{
     var master_bat = getprop("/controls/switches/master-bat");
     var master_alt = getprop("/controls/switches/master-alt");
-	var battery_status = getprop("/systems/pa38/electrical/battery-status");
+	var battery_status = getprop("/systems/electrical/battery-status");
 	var new_battery_status = battery_status;
 	var external_volts = 0;
 	var external_amps = 0;
@@ -15,7 +15,7 @@ var electricsystem=func{
  }
 	
 	var engine_rpm = getprop("/engines/engine/rpm");
-	var ideal_rpm = 720;	
+	var ideal_rpm = 550;	
 	var ideal_volts = 12;
 	var ideal_amps = 60;
 	var bus_load = 0;
@@ -67,129 +67,129 @@ var electricsystem=func{
 		
     # Comm-Nav
     if ( getprop("/controls/circuit-breakers/comm1") ) {
-        setprop("/systems/pa38/electrical/outputs/comm[0]", bus_volts);
+        setprop("/systems/electrical/outputs/comm[0]", bus_volts);
     } else {
-        setprop("/systems/pa38/electrical/outputs/comm[0]", 0.0);
+        setprop("/systems/electrical/outputs/comm[0]", 0.0);
     }
 
     if ( getprop("/controls/circuit-breakers/comm2") ) {
-        setprop("/systems/pa38/electrical/outputs/comm[1]", bus_volts);
+        setprop("/systems/electrical/outputs/comm[1]", 0.0);
     } else {
-        setprop("/systems/pa38/electrical/outputs/comm[1]", 0.0);
+        setprop("/systems/electrical/outputs/comm[1]", 0.0);
     }
 	
     if ( getprop("/controls/circuit-breakers/nav1") ) {
-        setprop("/systems/pa38/electrical/outputs/nav[0]", bus_volts);
+        setprop("/systems/electrical/outputs/nav[0]", bus_volts);
     } else {
-        setprop("/systems/pa38/electrical/outputs/nav[0]", 0.0);
+        setprop("/systems/electrical/outputs/nav[0]", 0.0);
     }
 
     if ( getprop("/controls/circuit-breakers/nav2") ) {
-        setprop("/systems/pa38/electrical/outputs/nav[1]", bus_volts);
+        setprop("/systems/electrical/outputs/nav[1]", 0.0);
     } else {
-        setprop("/systems/pa38/electrical/outputs/nav[1]", 0.0);
+        setprop("/systems/electrical/outputs/nav[1]", 0.0);
     }
 
     if ( getprop("/controls/circuit-breakers/adf") ) {
-        setprop("/systems/pa38/electrical/outputs/adf", bus_volts);
+        setprop("/systems/electrical/outputs/adf", bus_volts);
     } else {
-        setprop("/systems/pa38/electrical/outputs/adf", 0.0);
+        setprop("/systems/electrical/outputs/adf", 0.0);
     }
 	
     if ( getprop("/controls/circuit-breakers/audio-mkr") ) {
-        setprop("/systems/pa38/electrical/outputs/audio-panel", bus_volts);
+        setprop("/systems/electrical/outputs/audio-panel", bus_volts);
     } else {
-        setprop("/systems/pa38/electrical/outputs/audio-panel", 0.0);
+        setprop("/systems/electrical/outputs/audio-panel", 0.0);
     }
 
     # Transponder
     if ( getprop("/controls/circuit-breakers/transponder") ) {
-        setprop("/systems/pa38/electrical/outputs/transponder", bus_volts);
+        setprop("/systems/electrical/outputs/transponder", bus_volts);
     } else {
-        setprop("/systems/pa38/electrical/outputs/transponder", 0.0);
+        setprop("/systems/electrical/outputs/transponder", 0.0);
     }
 
     # Starter
     if ( getprop("/controls/circuit-breakers/starter") ) {
-        setprop("/systems/pa38/electrical/outputs/starter", bus_volts);
+        setprop("/systems/electrical/outputs/starter", bus_volts);
     } else {
-        setprop("/systems/pa38/electrical/outputs/starter", 0.0);
+        setprop("/systems/electrical/outputs/starter", 0.0);
     }
 
     # Stall warning
     if ( getprop("/controls/circuit-breakers/stall-warn") ) {
-        setprop("/systems/pa38/electrical/outputs/stall-warn", bus_volts);
+        setprop("/systems/electrical/outputs/stall-warn", bus_volts);
     } else {
-        setprop("/systems/pa38/electrical/outputs/stall-warn", 0.0);
+        setprop("/systems/electrical/outputs/stall-warn", 0.0);
     }
 
     # Warning light
     if ( getprop("/controls/circuit-breakers/warn_lt") ) {
-        setprop("/systems/pa38/electrical/outputs/warn_lt", bus_volts);
+        setprop("/systems/electrical/outputs/warn_lt", bus_volts);
     } else {
-        setprop("/systems/pa38/electrical/outputs/warn_lt", 0.0);
+        setprop("/systems/electrical/outputs/warn_lt", 0.0);
     }
 
     # Alternator field
     if ( getprop("/controls/circuit-breakers/alt-field") ) {
-        setprop("/systems/pa38/electrical/outputs/alt-field", bus_volts);
+        setprop("/systems/electrical/outputs/alt-field", bus_volts);
     } else {
-        setprop("/systems/pa38/electrical/outputs/alt-field", 0.0);
+        setprop("/systems/electrical/outputs/alt-field", 0.0);
     }
 	
     # Engine Instrument Power: ammeter, fuel, oil press and temperature
     if ( getprop("/controls/circuit-breakers/engine-gages") ) {
-        setprop("/systems/pa38/electrical/outputs/engine-gages", bus_volts);
+        setprop("/systems/electrical/outputs/engine-gages", bus_volts);
     } else {
-        setprop("/systems/pa38/electrical/outputs/engine-gages", 0.0);
+        setprop("/systems/electrical/outputs/engine-gages", 0.0);
     }
     
     # Interior lights
     if ( getprop("/controls/circuit-breakers/panel_lt") ) {
-        setprop("/systems/pa38/electrical/outputs/panel-lights", bus_volts);
+        setprop("/systems/electrical/outputs/panel-lights", bus_volts);
     } else {
-        setprop("/systems/pa38/electrical/outputs/panel-lights", 0.0);
+        setprop("/systems/electrical/outputs/panel-lights", 0.0);
     }    
 
     # Landing Light Power
     if ( getprop("/controls/circuit-breakers/landing_lt") ) {
-        setprop("/systems/pa38/electrical/outputs/landing-light", bus_volts);
+        setprop("/systems/electrical/outputs/landing-light", bus_volts);
     } else {
-        setprop("/systems/pa38/electrical/outputs/landing-light", 0.0 );
+        setprop("/systems/electrical/outputs/landing-light", 0.0 );
     }    
     
     # Nav Lights Power
     if ( getprop("/controls/circuit-breakers/nav_lt") ) {
-        setprop("/systems/pa38/electrical/outputs/nav-lights", bus_volts);
+        setprop("/systems/electrical/outputs/nav-lights", bus_volts);
 		if ( getprop("/controls/lighting/nav-lights-switch") ) {
 			bus_load -= bus_volts / 2.4;
 		}
     } else {
-        setprop("/systems/pa38/electrical/outputs/nav-lights", 0.0);
+        setprop("/systems/electrical/outputs/nav-lights", 0.0);
     }
 
     # Anti-Collision Lights Power
     if ( getprop("/controls/circuit-breakers/anti-coll_lt") ) {
-        setprop("/systems/pa38/electrical/outputs/anti-coll-lights", bus_volts); 
+        setprop("/systems/electrical/outputs/anti-coll-lights", bus_volts); 
  } else {
-        setprop("/systems/pa38/electrical/outputs/anti-coll-lights", 0.0);
+        setprop("/systems/electrical/outputs/anti-coll-lights", 0.0);
     }
 
     # Turn Coordinator and directional gyro Power
     if ( getprop("/controls/circuit-breakers/turn-coordinator") ) {
-        setprop("/systems/pa38/electrical/outputs/turn-coordinator", bus_volts);
-        setprop("/systems/pa38/electrical/outputs/DG", bus_volts);
+        setprop("/systems/electrical/outputs/turn-coordinator", bus_volts);
+        setprop("/systems/electrical/outputs/DG", bus_volts);
     } else {
-        setprop("/systems/pa38/electrical/outputs/turn-coordinator", 0.0);
-        setprop("/systems/pa38/electrical/outputs/DG", 0.0);
+        setprop("/systems/electrical/outputs/turn-coordinator", 0.0);
+        setprop("/systems/electrical/outputs/DG", 0.0);
     }
 
-	setprop("/systems/pa38/electrical/suppliers/battery", battery_volts);
-	setprop("/systems/pa38/electrical/suppliers/alternator", alternator_volts);
-	setprop("/systems/pa38/electrical/amps", alternator_amps);
-	setprop("/systems/pa38/electrical/bus_load", bus_load);
-	setprop("/systems/pa38/electrical/volts", bus_volts);
-	setprop("/systems/pa38/electrical/battery-status", new_battery_status);
+	setprop("/systems/electrical/suppliers/battery", battery_volts);
+	setprop("/systems/electrical/suppliers/alternator", alternator_volts);
+	setprop("/systems/electrical/amps", alternator_amps);
+	setprop("/systems/electrical/bus_load", bus_load);
+	setprop("/systems/electrical/volts", bus_volts);
+	setprop("/systems/electrical/battery-status", new_battery_status);
 
 	settimer(electricsystem, 0);
 }

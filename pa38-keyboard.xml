@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Copyright (c) 2011  Stuart Buchanan
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<PropertyList>
+
+	<key n="76">
+		<name>L</name>
+		<desc>Select Fuel Selector View</desc>
+		<binding>
+			<command>property-assign</command>
+			<property>/sim/current-view/view-number</property>
+			<value>9</value>
+		</binding>
+	</key>
+
+    <key n="81">
+        <name>Q</name>
+        <desc>Reset to default view</desc>
+        <binding>
+            <command>nasal</command>
+            <script>pa38.reset_view(0)</script>
+        </binding>
+    </key>
+	
+	<key n="82">
+		<name>R</name>
+		<desc>Select Radio Stack Panel View</desc>
+		<binding>
+			<command>property-assign</command>
+			<property>/sim/current-view/view-number</property>
+			<value>10</value>
+		</binding>
+	</key>
+	
+	<key n="115">
+		<name>s</name>
+		<desc>Fire Starter on Selected Engine(s)</desc>
+		<binding>
+			<command>property-assign</command>
+			<property>controls/switches/starter</property>
+			<value>1</value>
+		</binding>
+		<mod-up>
+			<binding>
+				<command>property-assign</command>
+				<property>controls/switches/starter</property>
+				<value>0</value>
+			</binding>
+		</mod-up>
+	</key>
+
+    <key n="121">
+        <name>y</name>
+        <desc>Show/hide yokes</desc>
+        <binding>
+            <command>property-toggle</command>
+            <property>sim/model/hide-yokeL</property>
+        </binding>
+        <binding>
+            <command>property-toggle</command>
+            <property>sim/model/hide-yokeR</property>
+        </binding>
+    </key>
+	
+    <key n="123">
+        <name>{</name>
+        <desc>Decrease Magneto on Selected Engine</desc>
+        <binding>
+            <command>property-adjust</command>
+            <property>/controls/switches/magnetos</property>
+            <step>-1</step>
+            <min>0</min>
+            <max>3</max>
+        </binding>
+        <binding>
+            <command>nasal</command>
+            <script>pa38.click("magneto-back")</script>
+        </binding>
+    </key>
+
+    <key n="125">
+        <name>}</name>
+        <desc>Increase Magneto on Selected Engine</desc>
+        <binding>
+            <command>property-adjust</command>
+            <property>/controls/switches/magnetos</property>
+            <step>1</step>
+            <min>0</min>
+            <max>3</max>
+        </binding>
+        <binding>
+            <command>nasal</command>
+            <script>pa38.click("magneto-forward")</script>
+        </binding>
+    </key>
+	
+</PropertyList>

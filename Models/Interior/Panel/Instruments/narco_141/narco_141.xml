@@ -251,53 +251,61 @@
                 <script>pa38.click("dial")</script>
             </binding>
         </action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>adf-volume</tooltip-id>
+				<label>Volume: %3d%%</label>
+				<property>/instrumentation/adf[0]/volume-norm</property>
+				<mapping>percent</mapping>
+			</binding>
+		</hovered>
     </animation>
 
-
-  <animation>
-    <type>knob</type>
-    <visible>true</visible>
-    <object-name>Knob_ADF_mode</object-name>
-    <property>/instrumentation/adf[0]/actual-mode</property>
-    <factor> 45 </factor>
-    <offset-deg>0</offset-deg>
-    <axis>
-        <x>  -1 </x>
-        <y>  0 </y>
-        <z>  0 </z>
-    </axis>
-    <center>
-        <x-m> 0.0139</x-m>
-        <y-m> 0.0757</y-m>
-        <z-m>-0.0191</z-m>
-    </center> 
-    <action>
-        <binding>
-            <command>property-adjust</command>
-            <property>/instrumentation/adf[0]/actual-mode</property>
-            <factor>1</factor>
-            <min>0</min>
-            <max>2</max>
-            <wrap>0</wrap>
-        </binding>
-		<binding>
-            <command>nasal</command>
-            <script>pa38.click("rotator")</script>
-        </binding>
-    </action>
-   <hovered>
-    <binding>
-      <command>set-tooltip</command>
-      <tooltip-id>ADF_selector_mode</tooltip-id>
-      <label>ADF Mode: %s</label>
-      <mapping>nasal</mapping>
-      <script>
-			var modes = ['ADF', 'REC', 'BFO'];
-			return modes[arg[0]];
-      </script>
-      <property>/instrumentation/adf[0]/actual-mode</property>
-   </binding>
-   </hovered>
-  </animation>
+	<animation>
+		<type>knob</type>
+		<visible>true</visible>
+		<object-name>Knob_ADF_mode</object-name>
+		<property>/instrumentation/adf[0]/actual-mode</property>
+		<factor> 45 </factor>
+		<offset-deg>0</offset-deg>
+		<axis>
+			<x>  -1 </x>
+			<y>  0 </y>
+			<z>  0 </z>
+		</axis>
+		<center>
+			<x-m> 0.0139</x-m>
+			<y-m> 0.0757</y-m>
+			<z-m>-0.0191</z-m>
+		</center> 
+		<action>
+			<binding>
+				<command>property-adjust</command>
+				<property>/instrumentation/adf[0]/actual-mode</property>
+				<factor>1</factor>
+				<min>0</min>
+				<max>2</max>
+				<wrap>0</wrap>
+			</binding>
+			<binding>
+				<command>nasal</command>
+				<script>pa38.click("rotator")</script>
+			</binding>
+		</action>
+		<hovered>
+			<binding>
+			  <command>set-tooltip</command>
+			  <tooltip-id>ADF_selector_mode</tooltip-id>
+			  <label>ADF Mode: %s</label>
+			  <mapping>nasal</mapping>
+			  <script>
+					var modes = ['ADF', 'REC', 'BFO'];
+					return modes[arg[0]];
+			  </script>
+			  <property>/instrumentation/adf[0]/actual-mode</property>
+			</binding>
+		</hovered>
+	</animation>
 
 </PropertyList>

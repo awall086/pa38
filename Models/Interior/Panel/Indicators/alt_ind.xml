@@ -10,12 +10,12 @@
 		<condition>
 			<and>
                 <greater-than>
-                    <property>/systems/pa38/electrical/volts</property>
+                    <property>/systems/electrical/volts</property>
                     <value>5.0</value>
                 </greater-than>
 				<or>
 					<less-than>
-						<property>systems/pa38/electrical/suppliers/alternator</property>
+						<property>systems/electrical/suppliers/alternator</property>
 						<value>6.2</value>
 					</less-than>
 					<less-than>

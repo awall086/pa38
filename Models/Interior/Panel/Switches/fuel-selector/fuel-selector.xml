@@ -11,7 +11,7 @@
         <object-name>fuel-selector</object-name>
         <visible>true</visible>
         <drag-scale-px>20</drag-scale-px>
-        <property>controls/fuel/fuel-selector</property>
+        <property>sim/model/pa38/fuel-selector-animation</property>
         <factor>-92</factor>
 		<axis>
 			<x>1.0</x>

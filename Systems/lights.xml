@@ -7,11 +7,11 @@
         <input>
             <and>
                 <less-than>
-                    <property>/systems/pa38/electrical/outputs/landing-light</property>
+                    <property>/systems/electrical/outputs/landing-light</property>
                     <value>14.5</value>
                 </less-than>
                 <greater-than>
-                    <property>/systems/pa38/electrical/outputs/landing-light</property>
+                    <property>/systems/electrical/outputs/landing-light</property>
                     <value>10.0</value>
                 </greater-than>
 				<greater-than>
@@ -58,7 +58,7 @@
         <input>
                 <and>
 					<greater-than> 
-						<property>/systems/pa38/electrical/outputs/nav-lights</property>
+						<property>/systems/electrical/outputs/nav-lights</property>
 						<value>10</value>
 					</greater-than>
 					<greater-than> 
@@ -79,7 +79,7 @@
             <condition>
                 <and>
 					<greater-than> 
-						<property>/systems/pa38/electrical/outputs/panel-lights</property>
+						<property>/systems/electrical/outputs/panel-lights</property>
 						<value>10</value>
 					</greater-than>
 					<greater-than> 
@@ -101,7 +101,7 @@
         <input>
             <condition>
                 <greater-than> 
-                    <property>/systems/pa38/electrical/outputs/anti-coll-lights</property>
+                    <property>/systems/electrical/outputs/anti-coll-lights</property>
                     <value>10</value>
                 </greater-than>
             </condition>
@@ -118,7 +118,7 @@
         <input>
             <condition>
                 <greater-than> 
-                    <property>/systems/pa38/electrical/outputs/panel-lights</property>
+                    <property>/systems/electrical/outputs/panel-lights</property>
                     <value>10</value>
                 </greater-than>
             </condition>
@@ -141,7 +141,7 @@
         <input>
             <condition>
                 <greater-than> 
-                    <property>/systems/pa38/electrical/outputs/panel-lights</property>
+                    <property>/systems/electrical/outputs/panel-lights</property>
                     <value>10</value>
                 </greater-than>
             </condition>

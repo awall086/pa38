@@ -39,15 +39,25 @@
   </center>
  </animation>
 
- <animation>
-   <type>select</type>
-   <object-name>yoke</object-name>
-   <condition>
-     <not>
-       <property>sim/model/hide-yokeL</property>
-     </not>
-   </condition>
- </animation>
+	<animation>
+		<type>select</type>
+		<object-name>yoke</object-name>
+		<condition>
+			<and>
+				<not-equals>
+					<property>sim/current-view/view-number</property>
+					<value>9</value>
+				</not-equals>
+				<not-equals>
+					<property>sim/current-view/view-number</property>
+					<value>10</value>
+				</not-equals>
+				<not>
+					<property>sim/model/hide-yokeL</property>
+				</not>
+			</and>
+		</condition>
+	</animation>
 
  <animation>
    <type>pick</type>

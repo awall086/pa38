@@ -56,11 +56,11 @@
         <input>
             <and>
                 <less-than>
-                    <property>/systems/pa38/electrical/outputs/starter</property>
+                    <property>/systems/electrical/outputs/starter</property>
                     <value>14.5</value>
                 </less-than>
                 <greater-than>
-                    <property>/systems/pa38/electrical/outputs/starter</property>
+                    <property>/systems/electrical/outputs/starter</property>
                     <value>8.0</value>
                 </greater-than>
 				<property>/controls/switches/starter</property>

@@ -4,21 +4,7 @@
 
     <path>external-power.ac</path>
     <nopreview/>
-
-	<animation>
-		<type>select</type>
-		<object-name>wire</object-name>
-		<object-name>case</object-name>
-		<object-name>base1</object-name>
-		<object-name>base2</object-name>
-		<object-name>base3</object-name>
-		<object-name>base4</object-name>
-		<object-name>handle</object-name>
-		<object-name>protection_l</object-name>
-		<object-name>protection_r</object-name>
-		<condition>
-			<property>controls/electric/external-power</property>
-		</condition>
-	</animation>
-
+    <offsets>
+        <z-m>1.222</z-m>
+    </offsets>
 </PropertyList>
