@@ -1628,7 +1628,7 @@
     <type>translate</type>
     <object-name>right_pedals</object-name>
     <property>controls/flight/rudder</property>
-    <factor>0.04</factor>
+    <factor>-0.04</factor>
     <axis>
         <x>1.0</x>
         <y>0.0</y>
@@ -1642,7 +1642,7 @@
     <object-name>Pilot_Right_pedal3</object-name>
     <object-name>Pilot_Right_pedal4</object-name>
     <property>controls/flight/rudder</property>
-    <factor>-12</factor>
+    <factor>12</factor>
     <axis>
         <x>0.0</x>
         <y>1.0</y>
@@ -1659,7 +1659,7 @@
     <type>rotate</type>
     <object-name>Pilot_Right_pedal1</object-name>
     <property>controls/flight/rudder</property>
-    <factor>-12</factor>
+    <factor>12</factor>
     <axis>
         <x>0.0</x>
         <y>1.0</y>
@@ -1678,7 +1678,7 @@
     <object-name>Copilot_Right_pedal3</object-name>
     <object-name>Copilot_Right_pedal4</object-name>
     <property>controls/flight/rudder</property>
-    <factor>-12</factor>
+    <factor>12</factor>
     <axis>
         <x>0.0</x>
         <y>1.0</y>
@@ -1695,7 +1695,7 @@
     <type>rotate</type>
     <object-name>Copilot_Right_pedal1</object-name>
     <property>controls/flight/rudder</property>
-    <factor>-12</factor>
+    <factor>12</factor>
     <axis>
         <x>0.0</x>
         <y>1.0</y>
@@ -1712,7 +1712,7 @@
     <type>translate</type>
     <object-name>left_pedals</object-name>
     <property>controls/flight/rudder</property>
-    <factor>-0.04</factor>
+    <factor>0.04</factor>
     <axis>
         <x>1.0</x>
         <y>0.0</y>
@@ -1726,7 +1726,7 @@
     <object-name>Pilot_Left_pedal3</object-name>
     <object-name>Pilot_Left_pedal4</object-name>
     <property>controls/flight/rudder</property>
-    <factor>12</factor>
+    <factor>-12</factor>
     <axis>
         <x>0.0</x>
         <y>1.0</y>
@@ -1743,7 +1743,7 @@
     <type>rotate</type>
     <object-name>Pilot_Left_pedal1</object-name>
     <property>controls/flight/rudder</property>
-    <factor>12</factor>
+    <factor>-12</factor>
     <axis>
         <x>0.0</x>
         <y>1.0</y>
@@ -1762,7 +1762,7 @@
     <object-name>Copilot_Left_pedal3</object-name>
     <object-name>Copilot_Left_pedal4</object-name>
     <property>controls/flight/rudder</property>
-    <factor>12</factor>
+    <factor>-12</factor>
     <axis>
         <x>0.0</x>
         <y>1.0</y>
@@ -1779,7 +1779,7 @@
     <type>rotate</type>
     <object-name>Copilot_Left_pedal1</object-name>
     <property>controls/flight/rudder</property>
-    <factor>12</factor>
+    <factor>-12</factor>
     <axis>
         <x>0.0</x>
         <y>1.0</y>
@@ -1789,6 +1789,42 @@
 			<x-m>1.74935</x-m>
 			<y-m>0.200001</y-m>
 			<z-m>-0.276138</z-m>
+		</center>
+</animation>
+
+<animation>
+    <type>rotate</type>
+    <object-name>Pilot_Left_pedal</object-name>
+	<object-name>Copilot_Left_pedal</object-name>
+    <property>/controls/gear/brake-left</property>
+    <factor>4</factor>
+    <axis>
+        <x>0.0</x>
+        <y>-1.0</y>
+        <z>0.0</z>
+    </axis>
+		<center>
+			<x-m>1.77371</x-m>
+			<y-m>0.140798</y-m>
+			<z-m>-0.361607</z-m>
+		</center>
+</animation>
+
+<animation>
+    <type>rotate</type>
+    <object-name>Pilot_Right_pedal</object-name>
+	<object-name>Copilot_Right_pedal</object-name>
+    <property>/controls/gear/brake-right</property>
+    <factor>4</factor>
+    <axis>
+        <x>0.0</x>
+        <y>-1.0</y>
+        <z>0.0</z>
+    </axis>
+		<center>
+			<x-m>1.77371</x-m>
+			<y-m>0.140798</y-m>
+			<z-m>-0.361607</z-m>
 		</center>
 </animation>
 
