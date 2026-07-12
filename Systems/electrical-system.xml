@@ -1,0 +1,747 @@
+<?xml version="1.0"?>
+<!-- 
+    Electrical System for Piper PA-38 Tomahawk
+    Version: 1.0
+-->
+
+<system name="electrical-system">
+
+    <!-- ============================================ -->
+    <!-- Property definition                          -->
+    <!-- ============================================ -->
+    
+    <!-- Battery -->
+<!--    <property type="double" value="14.0">systems/pa-38/electrical/battery-voltage</property>
+    <property type="double" value="0.0">systems/pa-38/electrical/battery-current</property>
+    <property type="double" value="100.0">systems/pa-38/electrical/battery-charge-pct</property> -->
+    
+    <!-- Alternator -->
+<!--    <property value="0.0">systems/pa-38/electrical/alternator-voltage</property>
+    <property value="0.0">systems/pa-38/electrical/alternator-current</property>
+    <property value="0">systems/pa-38/electrical/alternator-serviceable</property> -->
+    
+    <!-- Main Bus  -->
+<!--    <property value="0.0">systems/pa-38/electrical/bus-voltage</property> -->
+    
+    <!-- Bus Loads -->
+<!--    <property value="0.0">systems/pa-38/electrical/loads/nav-lights</property>
+    <property value="0.0">systems/pa-38/electrical/loads/anti-coll-lights</property>
+    <property value="0.0">systems/pa-38/electrical/loads/landing-light</property>
+    <property value="0.0">systems/pa-38/electrical/loads/com1</property>
+    <property value="0.0">systems/pa-38/electrical/loads/nav1</property>
+	<property value="0.0">systems/pa-38/electrical/loads/adf</property>
+    <property value="0.0">systems/pa-38/electrical/loads/transponder</property>
+    <property value="0.0">systems/pa-38/electrical/loads/fuel-pump</property>
+    <property value="0.0">systems/pa-38/electrical/loads/pitot-heat</property>
+    <property value="0.0">systems/pa-38/electrical/loads/starter</property>
+    <property value="0.0">systems/pa-38/electrical/loads/instruments</property>    
+	<property value="0.0">systems/pa-38/electrical/loads/total</property> -->
+    
+    <!-- Outputs -->
+<!--    <property value="0.0">systems/pa-38/electrical/outputs/nav-lights</property>
+    <property value="0.0">systems/pa-38/electrical/outputs/anti-coll-lights</property>
+    <property value="0.0">systems/pa-38/electrical/outputs/landing-light</property>
+    <property value="0.0">systems/pa-38/electrical/outputs/com1</property>
+    <property value="0.0">systems/pa-38/electrical/outputs/nav1</property>
+	<property value="0.0">systems/pa-38/electrical/outputs/adf</property>
+    <property value="0.0">systems/pa-38/electrical/outputs/transponder</property>
+    <property value="0.0">systems/pa-38/electrical/outputs/fuel-pump</property>
+    <property value="0.0">systems/pa-38/electrical/outputs/pitot-heat</property>
+    <property value="0.0">systems/pa-38/electrical/outputs/starter</property> -->
+
+    <!-- ============================================ -->
+    <!-- BATTERY CHANNEL                              -->
+    <!-- ============================================ -->
+    
+    <channel name="Battery Management">
+
+		<fcs_function name="/systems/pa-38/electrical/battery-voltage">
+
+			<function>
+				<difference>
+					<sum>
+						<value>11.6</value>
+
+						<!-- 0.02 * SOC -->
+						<product>
+							<value>0.02</value>
+							<property>/systems/pa-38/electrical/battery-charge-pct</property>
+						</product>
+
+						<!-- -0.00005 * SOC^2 -->
+						<product>
+							<value>-0.00005</value>
+							<product>
+								<property>/systems/pa-38/electrical/battery-charge-pct</property>
+								<property>/systems/pa-38/electrical/battery-charge-pct</property>
+							</product>
+						</product>
+					</sum>
+>
+					<product>
+						<value>0.02</value> 
+						<property>/systems/pa-38/electrical/loads/total</property>
+					</product>
+				</difference>
+			</function>
+			<clipto>
+				<min>10.0</min>
+				<max>12.8</max>
+			</clipto>
+		</fcs_function>
+
+        <fcs_function name="/systems/pa-38/electrical/battery-current">
+            <function>
+                <ifthen>
+                    <eq>
+                        <property>/controls/switches/master-batt</property>
+                        <value>1</value>
+                    </eq>
+                    <product>
+                        <property>/systems/pa-38/electrical/loads/total</property>
+                        <difference>
+                            <value>1.0</value>
+                            <ifthen>
+                                <gt>
+                                    <property>/systems/pa-38/electrical/alternator-voltage</property>
+                                    <value>13.0</value>
+                                </gt>
+                                <value>0.9</value>
+                                <value>0.0</value>
+                            </ifthen>
+                        </difference>
+                    </product>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+		</fcs_function>
+
+        <!-- Battery charge status (%) -->
+        <fcs_function name="/systems/pa-38/electrical/battery-charge-pct">
+            <function>
+                <ifthen>
+                    <eq>
+                        <property>/controls/switches/master-batt</property>
+                        <value>1</value>
+                    </eq>
+                    <!-- Charging or discharging the battery depending on whether the alternator is supplying current -->
+                    <ifthen>
+                        <gt>
+                            <property>/systems/pa-38/electrical/alternator-voltage</property>
+                            <value>13.0</value>
+                        </gt>
+                        <!-- Charging the battery with the alternator -->
+                        <sum>
+							<product>
+								<value>0.00028</value>
+								<difference>
+									<value>100.0</value>
+									<property>/systems/pa-38/electrical/battery-charge-pct</property>
+								</difference>
+							</product>
+							<property>/systems/pa-38/electrical/battery-charge-pct</property>
+						</sum>
+						<!-- Battery discharge based on bus load -->
+                        <sum>
+							<product>
+								<value>-0.00000994</value>
+								<property>/systems/pa-38/electrical/loads/total</property>
+							</product>
+							<property>/systems/pa-38/electrical/battery-charge-pct</property>
+						</sum>
+                    </ifthen>
+                    <property>/systems/pa-38/electrical/battery-charge-pct</property>
+                </ifthen>
+            </function>
+            <clipto>
+                <min>0.0</min>
+                <max>100.0</max>
+            </clipto>
+        </fcs_function>
+		
+    </channel>
+
+    <!-- ============================================ -->
+    <!-- ALTERNATOR CHANNEL                           -->
+    <!-- ============================================ -->
+    
+    <channel name="Alternator Management">
+
+        <fcs_function name="/systems/pa-38/electrical/engine-rpm-norm">
+            <function>
+                <quotient>
+					<property>/engines/engine[0]/rpm</property>
+                    <value>2600.0</value>
+                </quotient>
+            </function>
+            <clipto>
+                <min>0.0</min>
+                <max>1.0</max>
+            </clipto>
+		</fcs_function>
+
+        <!-- Alternator 60A, 14V -->
+        <fcs_function name="/systems/pa-38/electrical/alternator-voltage">
+            <function>
+                <ifthen>
+                    <and>
+                        <eq>
+                            <property>/controls/switches/master-alt</property>
+                            <value>1</value>
+                        </eq>
+                        <eq>
+                            <property>/controls/circuit-breakers/alt-field</property>
+                            <value>1</value>
+                        </eq>
+                        <gt>
+							<property>/engines/engine[0]/rpm</property>
+                            <value>500.0</value>
+                        </gt>
+                    </and>
+                    <!-- Alternator voltage according to engine RPM -->
+                    <product>
+                        <value>14.2</value>
+                        <ifthen>
+                            <lt>
+                                <property>/systems/pa-38/electrical/engine-rpm-norm</property>
+                                <value>0.25</value>
+                            </lt>
+                            <quotient>
+                                <property>/systems/pa-38/electrical/engine-rpm-norm</property>
+                                <value>0.25</value>
+                            </quotient>
+                            <value>1.0</value>
+                        </ifthen>
+                    </product>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+            <clipto>
+                <min>0.0</min>
+                <max>14.5</max>
+            </clipto>
+        </fcs_function>
+
+        <fcs_function name="/systems/pa-38/electrical/alternator-current">
+            <function>
+                <ifthen>
+                    <gt>
+                        <property>/systems/pa-38/electrical/alternator-voltage</property>
+                        <value>10.0</value>
+                    </gt>
+                    <min>
+                        <property>/systems/pa-38/electrical/loads/total</property>
+                        <value>60.0</value>
+                    </min>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+    </channel>
+
+    <!-- ============================================ -->
+    <!-- MAIN BUS VOLTAGE                             -->
+    <!-- ============================================ -->
+    
+    <channel name="Main Bus">
+
+        <!-- Main bus volts -->
+        <fcs_function name="/systems/pa-38/electrical/bus-voltage">
+            <function>
+                <ifthen>
+                    <eq>
+                        <property>/controls/switches/master-batt</property>
+                        <value>1</value>
+                    </eq>
+                    <ifthen>
+                        <gt>
+                            <property>/systems/pa-38/electrical/alternator-voltage</property>
+                            <value>13.0</value>
+                        </gt>
+                        <!-- The alternator supplies current -->
+                        <property>/systems/pa-38/electrical/alternator-voltage</property>
+                        <!-- Only Battery supplies current -->
+                        <property>/systems/pa-38/electrical/battery-voltage</property>
+                    </ifthen>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+    </channel>
+
+    <!-- ============================================ -->
+    <!-- OUTPUTS and LOADS                            -->
+    <!-- ============================================ -->
+    
+    <channel name="Electrical Outputs">
+
+        <!-- Starter - Load: ~14A -->
+        <fcs_function name="/systems/pa-38/electrical/outputs/starter">
+            <function>
+                <ifthen>
+                    <and>
+                        <gt>
+                            <property>/systems/pa-38/electrical/bus-voltage</property>
+                            <value>8.0</value>
+                        </gt>
+                        <eq>
+                            <property>/controls/switches/starter</property>
+                            <value>1</value>
+                        </eq>
+                        <eq>
+                            <property>/controls/circuit-breakers/starter</property>
+                            <value>1</value>
+                        </eq>
+                    </and>
+                    <property>/systems/pa-38/electrical/bus-voltage</property>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+        <fcs_function name="/systems/pa-38/electrical/loads/starter">
+            <function>
+                <ifthen>
+                    <gt>
+                        <property>/systems/pa-38/electrical/outputs/starter</property>
+                        <value>0.0</value>
+                    </gt>
+                    <value>14.0</value>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function> 
+
+		<!-- Nav Lights - Load: ~5A -->
+        <fcs_function name="/systems/pa-38/electrical/outputs/nav-lights">
+            <function>
+                <ifthen>
+                    <and>
+                        <gt>
+                            <property>/systems/pa-38/electrical/bus-voltage</property>
+                            <value>8.0</value>
+                        </gt>
+                        <gt>
+                            <property>/controls/lighting/panel-lights</property>
+                            <value>-0.1</value>
+                        </gt>
+                        <eq>
+                            <property>/controls/circuit-breakers/nav_lt</property>
+                            <value>1</value>
+                        </eq>
+                    </and>
+                    <property>/systems/pa-38/electrical/bus-voltage</property>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+        <fcs_function name="/systems/pa-38/electrical/loads/nav-lights">
+            <function>
+                <ifthen>
+                    <gt>
+                        <property>/systems/pa-38/electrical/outputs/nav-lights</property>
+                        <value>0.0</value>
+                    </gt>
+                    <value>5.0</value>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+        <!-- Anti-Collision Lights (Strobe Lights) - Load:~4A  -->
+        <fcs_function name="/systems/pa-38/electrical/outputs/anti-coll-lights">
+            <function>
+                <ifthen>
+                    <and>
+                        <gt>
+                            <property>/systems/pa-38/electrical/bus-voltage</property>
+                            <value>8.0</value>
+                        </gt>
+                        <eq>
+                            <property>/controls/lighting/anti-coll-switch</property>
+                            <value>1</value>
+                        </eq>
+                        <eq>
+                            <property>/controls/circuit-breakers/anti-coll_lt</property>
+                            <value>1</value>
+                        </eq>
+                    </and>
+                    <property>/systems/pa-38/electrical/bus-voltage</property>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+        <fcs_function name="/systems/pa-38/electrical/loads/anti-coll-lights">
+            <function>
+                <ifthen>
+                    <gt>
+                        <property>/systems/pa-38/electrical/outputs/anti-coll-lights</property>
+                        <value>0.0</value>
+                    </gt>
+                    <value>4.0</value>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+        <!-- Landing Light - Load: ~14A -->
+        <fcs_function name="/systems/pa-38/electrical/outputs/landing-light">
+            <function>
+                <ifthen>
+                    <and>
+                        <gt>
+                            <property>/systems/pa-38/electrical/bus-voltage</property>
+                            <value>8.0</value>
+                        </gt>
+                        <eq>
+                            <property>/controls/lighting/landing-switch</property>
+                            <value>1</value>
+                        </eq>
+                        <eq>
+                            <property>/controls/circuit-breakers/landing_lt</property>
+                            <value>1</value>
+                        </eq>
+                    </and>
+                    <property>/systems/pa-38/electrical/bus-voltage</property>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+        <fcs_function name="/systems/pa-38/electrical/loads/landing-light">
+            <function>
+                <ifthen>
+                    <gt>
+                        <property>/systems/pa-38/electrical/outputs/landing-light</property>
+                        <value>0.0</value>
+                    </gt>
+                    <value>14.0</value>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+        <!-- Com1 - Load: ~4.5A -->
+        <fcs_function name="/systems/pa-38/electrical/outputs/com1">
+            <function>
+                <ifthen>
+                    <and>
+                        <gt>
+                            <property>/systems/pa-38/electrical/bus-voltage</property>
+                            <value>8.0</value>
+                        </gt>
+                        <eq>
+                            <property>/instrumentation/comm[0]/power-btn</property>
+                            <value>1</value>
+                        </eq>
+                        <eq>
+                            <property>/controls/circuit-breakers/comm1</property>
+                            <value>1</value>
+                        </eq>
+                    </and>
+                    <property>/systems/pa-38/electrical/bus-voltage</property>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+        <fcs_function name="/systems/pa-38/electrical/loads/com1">
+            <function>
+                <ifthen>
+                    <gt>
+                        <property>/systems/pa-38/electrical/outputs/com1</property>
+                        <value>0.0</value>
+                    </gt>
+                    <value>4.5</value>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+        <!-- Nav1 - Load: ~1.5A -->
+        <fcs_function name="/systems/pa-38/electrical/outputs/nav1">
+            <function>
+                <ifthen>
+                    <and>
+                        <gt>
+                            <property>/systems/pa-38/electrical/bus-voltage</property>
+                            <value>8.0</value>
+                        </gt>
+                        <eq>
+                            <property>/instrumentation/nav[0]/power-btn</property>
+                            <value>1</value>
+                        </eq>
+                        <eq>
+                            <property>/controls/circuit-breakers/nav1</property>
+                            <value>1</value>
+                        </eq>
+                    </and>
+                    <property>/systems/pa-38/electrical/bus-voltage</property>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+        <fcs_function name="/systems/pa-38/electrical/loads/nav1">
+            <function>
+                <ifthen>
+                    <gt>
+                        <property>/systems/pa-38/electrical/outputs/nav1</property>
+                        <value>0.0</value>
+                    </gt>
+                    <value>1.5</value>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+        <!-- ADF - Load: ~1.5A -->
+        <fcs_function name="/systems/pa-38/electrical/outputs/adf">
+            <function>
+                <ifthen>
+                    <and>
+                        <gt>
+                            <property>/systems/pa-38/electrical/bus-voltage</property>
+                            <value>8.0</value>
+                        </gt>
+                        <eq>
+                            <property>/instrumentation/adf[0]/power-btn</property>
+                            <value>1</value>
+                        </eq>
+                        <eq>
+                            <property>/controls/circuit-breakers/adf</property>
+                            <value>1</value>
+                        </eq>
+                    </and>
+                    <property>/systems/pa-38/electrical/bus-voltage</property>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+        <fcs_function name="/systems/pa-38/electrical/loads/adf">
+            <function>
+                <ifthen>
+                    <gt>
+                        <property>/systems/pa-38/electrical/outputs/adf</property>
+                        <value>0.0</value>
+                    </gt>
+                    <value>1.5</value>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+		
+		<!-- Transponder - Load: ~2.0A -->
+        <fcs_function name="/systems/pa-38/electrical/outputs/transponder">
+            <function>
+                <ifthen>
+                    <and>
+                        <gt>
+                            <property>/systems/pa-38/electrical/bus-voltage</property>
+                            <value>8.0</value>
+                        </gt>
+                        <gt>
+                            <property>/instrumentation/transponder/inputs/knob-mode</property>
+                            <value>1</value>
+                        </gt>
+                        <eq>
+                            <property>/controls/circuit-breakers/transponder</property>
+                            <value>1</value>
+                        </eq>
+                    </and>
+                    <property>/systems/pa-38/electrical/bus-voltage</property>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+        <fcs_function name="/systems/pa-38/electrical/loads/transponder">
+            <function>
+                <ifthen>
+                    <gt>
+                        <property>/systems/pa-38/electrical/outputs/transponder</property>
+                        <value>0.0</value>
+                    </gt>
+                    <value>2.0</value>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>		
+
+        <!-- Fuel Pump - Load: ~3A -->
+        <fcs_function name="/systems/pa-38/electrical/outputs/fuel-pump">
+            <function>
+                <ifthen>
+                    <and>
+                        <gt>
+                            <property>/systems/pa-38/electrical/bus-voltage</property>
+                            <value>8.0</value>
+                        </gt>
+                        <eq>
+                            <property>/controls/switches/fuel-pump</property>
+                            <value>1</value>
+                        </eq>
+                        <eq>
+                            <property>/controls/circuit-breakers/fuel-pump</property>
+                            <value>1</value>
+                        </eq>
+                    </and>
+                    <property>/systems/pa-38/electrical/bus-voltage</property>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+        <fcs_function name="/systems/pa-38/electrical/loads/fuel-pump">
+            <function>
+                <ifthen>
+                    <gt>
+                        <property>/systems/pa-38/electrical/outputs/fuel-pump</property>
+                        <value>0.0</value>
+                    </gt>
+                    <value>3.0</value>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+        <!-- Pitot Heat - Load: ~12A -->
+        <fcs_function name="/systems/pa-38/electrical/outputs/pitot-heat">
+            <function>
+                <ifthen>
+                    <and>
+                        <gt>
+                            <property>/systems/pa-38/electrical/bus-voltage</property>
+                            <value>8.0</value>
+                        </gt>
+                        <eq>
+                            <property>/controls/anti-ice/pitot-heat-switch</property>
+                            <value>1</value>
+                        </eq>
+                        <eq>
+                            <property>/controls/circuit-breakers/pitot-heat</property>
+                            <value>1</value>
+                        </eq>
+                    </and>
+                    <property>/systems/pa-38/electrical/bus-voltage</property>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+        <fcs_function name="/systems/pa-38/electrical/loads/pitot-heat">
+            <function>
+                <ifthen>
+                    <gt>
+                        <property>/systems/pa-38/electrical/outputs/pitot-heat</property>
+                        <value>0.0</value>
+                    </gt>
+                    <value>12.0</value>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+        <!-- instruments Light - Load: ~2A -->
+        <fcs_function name="/systems/pa-38/electrical/outputs/panel-light">
+            <function>
+                <ifthen>
+                    <and>
+                        <gt>
+                            <property>/systems/pa-38/electrical/bus-voltage</property>
+                            <value>8.0</value>
+                        </gt>
+                        <gt>
+                            <property>/controls/lighting/panel-lights</property>
+                            <value>0</value>
+                        </gt>
+                        <eq>
+                            <property>/controls/circuit-breakers/panel_lt</property>
+                            <value>1</value>
+                        </eq>
+                    </and>
+                    <property>/systems/pa-38/electrical/bus-voltage</property>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+        <fcs_function name="/systems/pa-38/electrical/loads/panel-light">
+            <function>
+                <ifthen>
+                    <gt>
+                        <property>/systems/pa-38/electrical/outputs/panel-light</property>
+                        <value>0.0</value>
+                    </gt>
+                    <value>2.0</value>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+		
+        <!-- Instruments - Load: ~3A -->
+        <fcs_function name="/systems/pa-38/electrical/loads/instruments">
+            <function>
+                <ifthen>
+                    <gt>
+                        <property>/systems/pa-38/electrical/bus-voltage</property>
+                        <value>8.0</value>
+                    </gt>
+                    <value>3.0</value>
+                    <value>0.0</value>
+                </ifthen>
+            </function>
+        </fcs_function>
+
+    </channel>
+
+    <!-- ============================================ -->
+    <!-- TOTAL BUS LOAD                               -->
+    <!-- ============================================ -->
+    
+    <channel name="Total Load Calculation">
+
+        <!-- Total loads -->
+        <fcs_function name="/systems/pa-38/electrical/loads/total">
+            <function>
+                <sum>
+                    <property>/systems/pa-38/electrical/loads/panel-light</property>
+					<property>/systems/pa-38/electrical/loads/nav-lights</property>
+                    <property>/systems/pa-38/electrical/loads/anti-coll-lights</property>
+                    <property>/systems/pa-38/electrical/loads/landing-light</property>
+                    <property>/systems/pa-38/electrical/loads/com1</property>
+					<property>/systems/pa-38/electrical/loads/nav1</property>
+					<property>/systems/pa-38/electrical/loads/adf</property>
+					<property>/systems/pa-38/electrical/loads/transponder</property>
+                    <property>/systems/pa-38/electrical/loads/fuel-pump</property>
+                    <property>/systems/pa-38/electrical/loads/pitot-heat</property>
+                    <property>/systems/pa-38/electrical/loads/instruments</property>
+					<property>/systems/pa-38/electrical/loads/starter</property>
+                </sum>
+            </function>
+            <clipto>
+                <min>0.0</min>
+                <max>80.0</max>
+            </clipto>
+        </fcs_function>
+
+    </channel>
+
+    <!-- ============================================ -->
+    <!-- ALTERNATOR SERVICEABLE                       -->
+    <!-- ============================================ -->
+
+    <switch name="systems/pa-38/electrical/alternator-serviceable">
+        <default value="1"/>
+        <!-- No serviceable IF CB is open -->
+        <test logic="AND" value="0">
+            /controls/circuit-breakers/alt-field LT 1
+        </test>
+    </switch>
+
+</system>

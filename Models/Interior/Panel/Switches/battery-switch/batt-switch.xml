@@ -8,7 +8,7 @@
 <animation>
     <type>rotate</type>
     <object-name>Batt_Switch</object-name>
-    <property>controls/switches/master-bat</property>
+    <property>controls/switches/master-batt</property>
     <factor>-25</factor>
     <axis>
         <x>0.0</x>
@@ -30,11 +30,11 @@
      <repeatable>false</repeatable>
      <binding>
        <command>property-toggle</command>
-       <property>controls/switches/master-bat</property>
+       <property>controls/switches/master-batt</property>
      </binding>
      <binding>
          <command>nasal</command>
-         <script>pa38.click("master-bat")</script>
+         <script>pa38.click("master-batt")</script>
      </binding>
    </action>
    <hovered>
@@ -43,7 +43,7 @@
       <tooltip-id>Master-switch</tooltip-id>
       <label>Master Batt: %s</label>
       <mapping>on-off</mapping>
-      <property>controls/switches/master-bat</property>
+      <property>controls/switches/master-batt</property>
    </binding>
    </hovered>
 </animation>        

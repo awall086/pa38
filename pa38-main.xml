@@ -3,7 +3,7 @@
 ************************************************************************
 JSBSim Piper PA-38 Tomahawk with 3D cockpit.
 
-Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
+Started October 04 2015 by Adrian Fernández Gómez
 ************************************************************************
 -->
 
@@ -21,8 +21,8 @@ Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
         </tags>
   
         <author>awall86 (Adrian Fernandez Gomez). A special thanks to Octal450 (Josh Davidson) for his excelent Aircraft Config Center Utility</author>
-        <status>alpha</status>
-        <aircraft-version>2025.2.1A</aircraft-version>
+        <status>beta</status>
+        <aircraft-version>2026.6.1B</aircraft-version>
         <minimum-fg-version>2020.3.17</minimum-fg-version> 
  
         <rating>
@@ -55,7 +55,7 @@ Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
 			<!-- Event sounds -->
 			<pa38>
 				<sound>
-					<click-master-bat type="bool">false</click-master-bat>
+					<click-master-batt type="bool">false</click-master-batt>
 					<click-master-alt type="bool">false</click-master-alt>
 					<click-landing-light type="bool">false</click-landing-light>
 					<click-strobe type="bool">false</click-strobe>
@@ -66,6 +66,7 @@ Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
 					<click-fuel-selector type="bool">false</click-fuel-selector>
 					<click-dial type="bool">false</click-dial>
 					<click-rotator type="bool">false</click-rotator>
+					<parking-brake type="bool">false</parking-brake>
 				</sound>
 				<doors>
 					<latched type="bool">false</latched>
@@ -77,8 +78,15 @@ Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
 				</chocks>
 				<lighting>
 					<gps-norm type="int">0</gps-norm>
+					<strobe>
+						<enabled type="bool">true</enabled>
+					</strobe>
 				</lighting>
 			</pa38>			
+
+            <hide-yokeL type="bool">false</hide-yokeL>
+			<hide-yokeR type="bool">false</hide-yokeR>
+            <hide-yoke-alpha-cmd>0.45</hide-yoke-alpha-cmd>
  
             <crew>
                 <pilot n="0">
@@ -146,7 +154,7 @@ Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
                 <splash type="bool">true</splash>
             </preview>
             <preview>
-				<type>exterior</type>
+				<type>interior</type>
                 <path>Previews/pa38-preview8.jpg</path>
                 <splash type="bool">true</splash>
             </preview>
@@ -239,10 +247,10 @@ Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
         </view>
 		
         <systems>
-            <property-rule n="100">
+			<property-rule n="100">
 				<path archive="y">Aircraft/pa38/Systems/engine.xml</path>
 			</property-rule>
-            <property-rule n="101">
+			<property-rule n="101">
                 <name>FiltersOnly</name>
                 <path>Systems/instruments.xml</path>
             </property-rule>
@@ -251,6 +259,9 @@ Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
             </property-rule> 
             <property-rule n="103">
                 <path archive="y">Aircraft/pa38/Systems/pax.xml</path>
+            </property-rule>
+			<property-rule n="104">
+                <path>Aircraft/pa38/Systems/sounds.xml</path>
             </property-rule>
 		</systems>
 		
@@ -296,6 +307,7 @@ Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
         <switches>
             <master-bat type="bool">false</master-bat>
             <master-alt type="bool">false</master-alt>
+			<fuel-pump type="bool">false</fuel-pump>
             <magnetos type="double">0</magnetos>
 			<starter type="bool">false</starter>
             <master-avionics type="bool">true</master-avionics>
@@ -337,8 +349,10 @@ Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
 			<engine>
 				<mixture type="double">0</mixture>
 				<primer type="double">0</primer>
+				<fuel-pressure-psi type="double">0</fuel-pressure-psi>
                 <primer-lever type="bool">false</primer-lever>
                 <use-primer type="bool">false</use-primer>
+				<carb_icing_allowed type="bool">true</carb_icing_allowed>
 			</engine>
 		</engines>
 
@@ -346,6 +360,13 @@ Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
 			<brake-parking type="bool">true</brake-parking>
 		</gear>
     </controls>
+
+	<engines>
+		<engine n="0">
+			<carb_ice type="double">0</carb_ice>
+			<carb_icing_allowed type="bool">true</carb_icing_allowed>
+		</engine>
+	</engines>
  
     <limits>
         <max-flap-extension-speed>
@@ -384,6 +405,27 @@ Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
            </tank>
         </fuel>
     </consumables>
+
+    <systems>
+		<pa-38>
+			<electrical>
+				
+				<!-- Battery status and charge -->
+				<battery-charge-pct type="double">100.0</battery-charge-pct>
+				<battery-voltage type="double">12.6</battery-voltage>
+				<battery-capacity-ah type="double">35.0</battery-capacity-ah> 
+				
+				<!-- Alternator -->
+				<alternator-voltage type="double">0.0</alternator-voltage>
+				<alternator-current type="double">0.0</alternator-current>
+				<alternator-serviceable type="bool">true</alternator-serviceable> 
+				
+				<!-- Bus -->
+				<bus-voltage type="double">0.0</bus-voltage>  
+            
+			</electrical>
+		</pa-38>
+    </systems>
 	
     <nasal> 
         <pa38>
@@ -392,10 +434,7 @@ Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
             <file>Nasal/engine.nas</file>
             <file>Nasal/doors.nas</file>
 			<file>Nasal/views.nas</file>
-        </pa38>
-        <electrical>
-            <file>Nasal/electrical.nas</file>
-        </electrical>
+		</pa38>
 		<garmin196>
 			<file>Aircraft/pa38/Models/Interior/Panel/Instruments/garmin196/garmin196.nas</file>
 		</garmin196>
@@ -406,12 +445,6 @@ Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
             <file>Nasal/light-manager.nas</file>
         </light-manager>
     </nasal>  
- 
-     <systems>
-        <electrical>
-            <battery-status type="double">100.0</battery-status>
-        </electrical>
-    </systems>
  
     <payload>
         <weight>
@@ -451,13 +484,24 @@ Started October 04 2015 by Adrian Fernández Gómez alcala_sim@yahoo.com.ar
             </inputs>
         </transponder>
 
-        <nav>
-            <power-btn type="int">0</power-btn>
+        <nav n="0">
+            <power-btn type="bool">false</power-btn>
+			<volume type="double">-0.1</volume>
         </nav>
 
-        <comm>
-            <power-btn type="int">0</power-btn>
-        </comm>
+		<comm n="0">
+			<power-btn type="bool">false</power-btn>
+		</comm>
+		<comm n="1">
+			<serviceable type="bool">false</serviceable>
+		</comm>
+
+        <adf n="0">
+			<power-btn type="bool">false</power-btn>
+			<mode type="string">off</mode>
+			<actual-mode type="int">-1</actual-mode>
+			<volume-norm type="double">0.0</volume-norm>
+        </adf>
 
         <garmin196>
             <texture-file>Aircraft/pa38/Models/Interior/Panel/Instruments/garmin196/coque.png</texture-file>

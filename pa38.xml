@@ -271,6 +271,9 @@
 
 	<system file="fuel"/>
 	<system file="towbar"/> <!-- integrate towbar -->
+	<system file="electrical-system"/>
+	<system file="pa38-engine"/>
+	<system file="pa38-stallwarn"/>	
  
  <flight_control name="FCS: Piper PA-38 Tomahawk">
 
@@ -585,6 +588,28 @@
 
   </channel> 
 
+        <function name="aero/function/kCDge">
+            <description>Change_in_drag_due_to_ground_effect</description>
+            <table>
+                <independentVar>aero/h_b-mac-ft</independentVar>
+                <tableData>
+                      0.0000    0.4800
+                      0.1000    0.5150
+                      0.1500    0.6290
+                      0.2000    0.7090
+                      0.3000    0.8150
+                      0.4000    0.8820
+                      0.5000    0.9280
+                      0.6000    0.9620
+                      0.7000    0.9880
+                      0.8000    1.0000
+                      0.9000    1.0000
+                      1.0000    1.0000
+                      1.1000    1.0000
+                  </tableData>
+            </table>
+        </function>
+
  </flight_control>
 
  <aerodynamics>
@@ -683,13 +708,30 @@
         </product>
     </function>
 
-    <function name="aero/force/Drag_flap">
+<!--    <function name="aero/force/Drag_flap">
        <description>Drag due to flaps</description>
          <product>
            <property>aero/qbar-psf</property>
            <property>metrics/Sw-sqft</property>
            <property>fcs/flap-pos-deg</property>
            <value> 0.00300 </value>
+         </product>
+    </function> -->
+	
+	    <function name="aero/force/Drag_flap">
+       <description>Drag due to flaps</description>
+         <product>
+           <property>aero/qbar-psf</property>
+           <property>metrics/Sw-sqft</property>
+           <property>aero/function/kCDge</property>
+          <table>
+            <independentVar lookup="row">fcs/flap-pos-deg</independentVar>
+            <tableData> 
+				0 0
+				27 0.022
+				35 0.043
+            </tableData>
+          </table>
          </product>
     </function>
 
@@ -908,7 +950,7 @@
             <property>aero/qbar-psf</property>
             <property>metrics/Sw-sqft</property>
             <property>metrics/bw-ft</property>
-            <value>400</value><!-- This sets the overall strength of the stall spin -->
+            <value>150</value><!-- This sets the overall strength of the stall spin -->
             <!-- This sets the direction of the spin, based on current yaw rate.-->
             <table>
                 <independentVar>velocities/r-aero-rad_sec</independentVar>
@@ -917,7 +959,7 @@
                       -.0001             -1
                       0                   0
                       .0001               1
-                      43.15               1       
+                      24.15               1       
                 </tableData>
             </table>
             <!-- This sets the amount and direction of spin, based on alpha -->
@@ -962,8 +1004,6 @@
         </force>
 
  </external_reactions>
-
-	<system file="pa38-engine"/>
-
+    
 </fdm_config>
 

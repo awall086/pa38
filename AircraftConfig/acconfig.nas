@@ -12,35 +12,35 @@ var CONFIG = {
 var spinning = maketimer(0.10, func {
 	var spinning = getprop("/systems/acconfig/spinning");
 	if (spinning == 0) {
-		setprop("/systems/acconfig/spin", ">>---");
+		setprop("/systems/acconfig/spin", ". o . . .");
 		setprop("/systems/acconfig/spinning", 1);
 	} else if (spinning == 1) {
-		setprop("/systems/acconfig/spin", ">>>--");
+		setprop("/systems/acconfig/spin", ". . o . .");
 		setprop("/systems/acconfig/spinning", 2);
 	} else if (spinning == 2) {
-		setprop("/systems/acconfig/spin", ">>>>-");
+		setprop("/systems/acconfig/spin", ". . . o .");
 		setprop("/systems/acconfig/spinning", 3);
 	} else if (spinning == 3) {
-		setprop("/systems/acconfig/spin", ">>>>>");
+		setprop("/systems/acconfig/spin", ". . . . o");
 		setprop("/systems/acconfig/spinning", 4);
 	} else if (spinning == 4) {
-		setprop("/systems/acconfig/spin", "->>>>");
+		setprop("/systems/acconfig/spin", ". . . o .");
 		setprop("/systems/acconfig/spinning", 5);
 	} else if (spinning == 5) {
-		setprop("/systems/acconfig/spin", "-->>>");
+		setprop("/systems/acconfig/spin", ". . o . .");
 		setprop("/systems/acconfig/spinning", 6);
 	} else if (spinning == 6) {
-		setprop("/systems/acconfig/spin", "--->>");
+		setprop("/systems/acconfig/spin", ". o . . .");
 		setprop("/systems/acconfig/spinning", 7);
 	} else if (spinning == 7) {
-		setprop("/systems/acconfig/spin", "---->");
+		setprop("/systems/acconfig/spin", "o . . . .");
 		setprop("/systems/acconfig/spinning", 0);
 	}
 });
 
 setprop("/systems/acconfig/autoconfig-running", 0);
 setprop("/systems/acconfig/spinning", 0);
-setprop("/systems/acconfig/spin", ">----");
+setprop("/systems/acconfig/spin", "o . . . .");
 setprop("/systems/acconfig/new-revision", "NONE");
 setprop("/systems/acconfig/out-of-date", 0);
 setprop("/systems/acconfig/mismatch-reason", "XX");
@@ -124,9 +124,9 @@ setlistener("/sim/signals/fdm-initialized", func {
 });
 
 var readSettings = func {
-	io.read_properties(getprop("/sim/fg-home") ~ "/Export/pa11-config.xml", "/systems/acconfig/options");
+	io.read_properties(getprop("/sim/fg-home") ~ "/Export/pa38-config.xml", "/systems/acconfig/options");
 }
 
 var writeSettings = func {
-	io.write_properties(getprop("/sim/fg-home") ~ "/Export/pa11-config.xml", "/systems/acconfig/options");
+	io.write_properties(getprop("/sim/fg-home") ~ "/Export/pa38-config.xml", "/systems/acconfig/options");
 }

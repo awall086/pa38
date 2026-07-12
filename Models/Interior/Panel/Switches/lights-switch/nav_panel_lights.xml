@@ -2,48 +2,43 @@
 
 <PropertyList>
 
- <path>light-switch.ac</path>
+	<path>light-switch.ac</path>
  
-<!--    <effect>
-        <inherits-from>Aircraft/c152/Models/Effects/interior/c152-interior-compartment</inherits-from>
-        <object-name>light_knob</object-name>
-    </effect> -->
+	<!--     Panel/radio light control    -->
  
-<!--     Panel/radio light control    -->
- 
- <animation>
-  <type>knob</type>
-  <object-name>light_knob</object-name>
-  <property>controls/lighting/panel-lights</property>
-  <factor>200.00</factor>
-  <offset-deg>50.00</offset-deg>
-  <axis>
-   <x>-1</x>
-   <y>0</y>
-   <z>0</z>
-  </axis>
-  <visible>true</visible>
-  <action>
-    <repeatable>true</repeatable>
-    <binding>
-      <command>property-adjust</command>
-      <property>controls/lighting/panel-lights</property>
-      <factor>0.1</factor>
-      <min>-0.1</min>
-      <max>1.0</max>
-      <wrap>0</wrap>
-    </binding>
-  </action>
+	<animation>
+		<type>knob</type>
+		<object-name>light_knob</object-name>
+		<property>controls/lighting/panel-lights</property>
+		<factor>200.00</factor>
+		<offset-deg>50.00</offset-deg>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+		<visible>true</visible>
+		<action>
+			<repeatable>true</repeatable>
+			<binding>
+				<command>property-adjust</command>
+				<property>controls/lighting/panel-lights</property>
+				<factor>0.1</factor>
+				<min>-0.1</min>
+				<max>1.0</max>
+				<wrap>0</wrap>
+			</binding>
+		</action>
    
-  <hovered>
-    <binding>
-      <command>set-tooltip</command>
-      <tooltip-id>panel-brightness</tooltip-id>
-      <label>Nav and Instruments Lighting: %3d%%</label>
-      <property>controls/lighting/instruments-norm</property>
-      <mapping>percent</mapping>
-    </binding>
-  </hovered>
- </animation>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>panel-brightness</tooltip-id>
+				<label>Nav and Instruments Lighting: %3d%%</label>
+				<property>controls/lighting/instruments-norm</property>
+				<mapping>percent</mapping>
+			</binding>
+		</hovered>
+	</animation>
 
 </PropertyList>

@@ -62,7 +62,7 @@
   <center>
    <x-m>0</x-m>
    <y-m>0</y-m>
-   <z-m>0.10</z-m>  <!-- 0.10 is fitted to the drawing. Initial 0.25 makes the radius of curvature for the glass tube ~10 inches and the angle +-4 deg (more sensitive) -->
+   <z-m>0.15</z-m>  <!-- 0.10 is fitted to the drawing. Initial 0.25 makes the radius of curvature for the glass tube ~10 inches and the angle +-4 deg (more sensitive) -->
   </center>
   <axis>
    <x>-1</x>
@@ -75,7 +75,7 @@
   <type>translate</type>
   <object-name>Flag</object-name>
   <property>/instrumentation/turn-indicator/spin</property>
-  <factor>0.0040</factor>
+  <factor>0.0080</factor>
   <axis>
    <x>0</x>
    <y>0</y>

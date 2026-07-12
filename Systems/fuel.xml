@@ -36,5 +36,33 @@ Negative Gs (<-0.5g) cuts the supply to the collector tanks -->
 
   </channel>      
 
+  <channel name="fuel pressure">
+  
+    <fcs_function name="fuel pressure in psi">
+      <function>
+	  <sum>
+        <product>
+          <property>/engines/engine[0]/rpm</property>
+          <value>0.0026</value>
+        </product>
+
+        <product>
+          <property>/controls/fuel/tank[0]/boost-pump</property>
+          <value>2.0</value>
+        </product>
+
+        <product>
+          <property>/engines/engine[0]/fuel-flow-gph</property>
+          <value>0.12</value>
+        </product>
+      </sum>
+		</function>
+      <output>/engines/engine[0]/fuel-pressure-psi</output>
+    </fcs_function>
+  </channel> 
+
 </system>
+
+
+
 

@@ -14,6 +14,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>Carb_heat1</object-name>
+		<object-name>Carb_heat2</object-name>
 		<property>/sim/model/pa38/carb-heat-animation</property>
 		<factor>90.0</factor>
 		<axis>
@@ -30,14 +31,14 @@
 
 	<animation>
         <type>pick</type>
-		<object-name>Carb_heat1</object-name>		
+		<object-name>Carb_heat2</object-name>		
         <visible>true</visible>
         <action>
             <button>0</button>
             <repeatable>false</repeatable>
             <binding>
                 <command>property-toggle</command>
-                <property>/controls/anti-ice/engine/carb-heat</property>
+                <property>/controls/anti-ice/engine[0]/carb-heat</property>
             </binding>
         </action>
         <hovered>
@@ -46,7 +47,7 @@
                 <tooltip-id>carburetor-heat</tooltip-id>
                 <label>Carburetor: %s</label>
                 <mapping>nasal</mapping>
-                <property>/controls/anti-ice/engine/carb-heat</property>
+                <property>/controls/anti-ice/engine[0]/carb-heat</property>
                 <script>
                     var modes = ['COLD', 'HEATED'];
                     return modes[arg[0]];

@@ -1,103 +1,102 @@
 <?xml version="1.0"?>
 
 <PropertyList>
-
-    <checklist>
-        <title>Cockpit Preflight Inspection</title>
-            <item>
-                <name>Parking brake</name>
-                <value>SET</value>
-                <marker>
-                    <x-m>1.8421</x-m>
-                    <y-m>-0.1157</y-m>
-                    <z-m>-0.1529</z-m>
-                    <scale>3.4667</scale>
-                </marker>
-                <condition>
-                     <equals>
-                        <property>/controls/gear/brake-parking</property>
-                        <value>1</value>
-                    </equals>
-                </condition>
-                <binding>
-                    <command>property-assign</command>
-                    <property>/controls/gear/brake-parking</property>
-                    <value>1</value>
-                </binding>
-            </item>
-            <item>
-                <name>Magnetos/Ignition</name>
-                <value>OFF</value>
-                <marker>
-                    <x-m>1.8306</x-m>
-                    <y-m>-0.3198</y-m>
-                    <z-m>-0.0901</z-m>
-                    <scale>3.0000</scale>
-                </marker>
-                <condition>
-                    <equals>
-                        <property>/controls/switches/magnetos</property>
-                        <value>0</value>
-                    </equals>
-                </condition>
-                <binding>
-                    <command>property-assign</command>
-                    <property>/controls/switches/magnetos</property>
-                    <value>0</value>
-                </binding>
-            </item>
-            <item>
-                <name>Battery Master Switch</name>
-                <value>ON</value>
-                <marker>
-                    <x-m>1.8285</x-m>
-                    <y-m>-0.3826</y-m>
-                    <z-m>-0.1003</z-m>
-                    <scale>3.8865</scale>
-                </marker>
-                <condition>
-                    <property>/controls/switches/master-bat</property>
-                </condition>
-                <binding>
-                    <command>property-assign</command>
-                    <property>/controls/switches/master-bat</property>
-                    <value type="bool">true</value>
-                </binding>
-            </item>
-            <item>
-                <name>Fuel Quantity</name>
-                <value>CHECK</value>
-                <marker>
-                    <x-m>1.6500</x-m>
-                    <y-m>-0.3445</y-m>
-                    <z-m>0.0109</z-m>
-                    <scale>4.0833</scale>
-                </marker>
-            </item>
-            <item>
-                <name>Battery Master Switch</name>
-                <value>OFF</value>
-                <marker>
-                    <x-m>1.8285</x-m>
-                    <y-m>-0.3826</y-m>
-                    <z-m>-0.1003</z-m>
-                    <scale>3.8865</scale>
-                </marker>
-                <condition>
-                    <equals>
-                        <property>/controls/switches/master-bat</property>
-                        <value>false</value>
-                    </equals>
-                </condition>
-                <binding>
-                    <command>property-assign</command>
-                    <property>/controls/switches/master-bat</property>
-                    <value type="bool">false</value>
-                </binding>
-            </item>
-    </checklist>
 	<group>
 		<name>Normal Procedures</name>
+		<checklist>
+			<title>Cockpit Preflight Inspection</title>
+				<item>
+					<name>Parking brake</name>
+					<value>SET</value>
+					<marker>
+						<x-m>1.8421</x-m>
+						<y-m>-0.1157</y-m>
+						<z-m>-0.1529</z-m>
+						<scale>3.4667</scale>
+					</marker>
+					<condition>
+						 <equals>
+							<property>/controls/gear/brake-parking</property>
+							<value>1</value>
+						</equals>
+					</condition>
+					<binding>
+						<command>property-assign</command>
+						<property>/controls/gear/brake-parking</property>
+						<value>1</value>
+					</binding>
+				</item>
+				<item>
+					<name>Magnetos/Ignition</name>
+					<value>OFF</value>
+					<marker>
+						<x-m>1.8306</x-m>
+						<y-m>-0.3198</y-m>
+						<z-m>-0.0901</z-m>
+						<scale>3.0000</scale>
+					</marker>
+					<condition>
+						<equals>
+							<property>/controls/switches/magnetos</property>
+							<value>0</value>
+						</equals>
+					</condition>
+					<binding>
+						<command>property-assign</command>
+						<property>/controls/switches/magnetos</property>
+						<value>0</value>
+					</binding>
+				</item>
+				<item>
+					<name>Battery Master Switch</name>
+					<value>ON</value>
+					<marker>
+						<x-m>1.8285</x-m>
+						<y-m>-0.3826</y-m>
+						<z-m>-0.1003</z-m>
+						<scale>3.8865</scale>
+					</marker>
+					<condition>
+						<property>/controls/switches/master-batt</property>
+					</condition>
+					<binding>
+						<command>property-assign</command>
+						<property>/controls/switches/master-batt</property>
+						<value type="bool">true</value>
+					</binding>
+				</item>
+				<item>
+					<name>Fuel Quantity</name>
+					<value>CHECK</value>
+					<marker>
+						<x-m>1.6500</x-m>
+						<y-m>-0.3445</y-m>
+						<z-m>0.0109</z-m>
+						<scale>4.0833</scale>
+					</marker>
+				</item>
+				<item>
+					<name>Battery Master Switch</name>
+					<value>OFF</value>
+					<marker>
+						<x-m>1.8285</x-m>
+						<y-m>-0.3826</y-m>
+						<z-m>-0.1003</z-m>
+						<scale>3.8865</scale>
+					</marker>
+					<condition>
+						<equals>
+							<property>/controls/switches/master-batt</property>
+							<value>false</value>
+						</equals>
+					</condition>
+					<binding>
+						<command>property-assign</command>
+						<property>/controls/switches/master-batt</property>
+						<value type="bool">false</value>
+					</binding>
+				</item>
+		</checklist>
 		<checklist>
 			<title>Before Starting Engine</title>
 			<item>
@@ -193,14 +192,14 @@
                         <value>1</value>
                     </equals>
                     <equals>
-                        <property>/controls/circuit-breakers/turn-coordinator</property>
+                        <property>/controls/circuit-breakers/turn-coord</property>
                         <value>1</value>
                     </equals>					
                 </and>
             </condition>
             <binding>
                 <command>property-assign</command>
-                <property>//controls/circuit-breakers/comm1</property>
+                <property>/controls/circuit-breakers/comm1</property>
                 <value>1</value>
             </binding>
             <binding>
@@ -270,7 +269,7 @@
             </binding>
             <binding>
                 <command>property-assign</command>
-                <property>/controls/circuit-breakers/turn-coordinator</property>
+                <property>/controls/circuit-breakers/turn-coord</property>
                 <value>1</value>
             </binding>			
         </item>
@@ -428,11 +427,11 @@
 						<scale>3.8865</scale>
 					</marker>
 				<condition>
-					<property>/controls/switches/master-bat</property>
+					<property>/controls/switches/master-batt</property>
 				</condition>
 				<binding>
 					<command>property-assign</command>
-					<property>/controls/switches/master-bat</property>
+					<property>/controls/switches/master-batt</property>
 					<value type="bool">true</value>
 				</binding>
 			</item> 
@@ -613,11 +612,11 @@
 						<scale>3.8865</scale>
 					</marker>
 				<condition>
-					<property>/controls/switches/master-bat</property>
+					<property>/controls/switches/master-batt</property>
 				</condition>
 				<binding>
 					<command>property-assign</command>
-					<property>/controls/switches/master-bat</property>
+					<property>/controls/switches/master-batt</property>
 					<value type="bool">true</value>
 				</binding>
 			</item> 
@@ -800,11 +799,11 @@
 						<scale>3.8865</scale>
 					</marker>
 				<condition>
-					<property>/controls/switches/master-bat</property>
+					<property>/controls/switches/master-batt</property>
 				</condition>
 				<binding>
 					<command>property-assign</command>
-					<property>/controls/switches/master-bat</property>
+					<property>/controls/switches/master-batt</property>
 					<value type="bool">true</value>
 				</binding>
 			</item> 
@@ -2179,12 +2178,12 @@
             </marker>
             <condition>
                 <not>
-                    <property>/controls/switches/master-bat</property>
+                    <property>/controls/switches/master-batt</property>
                 </not>
             </condition>
             <binding>
                 <command>property-assign</command>
-                <property>/controls/switches/master-bat</property>
+                <property>/controls/switches/master-batt</property>
                 <value type="bool">false</value>
             </binding>
         </item>

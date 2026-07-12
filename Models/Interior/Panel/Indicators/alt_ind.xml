@@ -10,13 +10,13 @@
 		<condition>
 			<and>
                 <greater-than>
-                    <property>/systems/electrical/volts</property>
-                    <value>5.0</value>
+                    <property>/systems/pa-38/electrical/bus-voltage</property>
+                    <value>10.0</value>
                 </greater-than>
 				<or>
 					<less-than>
-						<property>systems/electrical/suppliers/alternator</property>
-						<value>6.2</value>
+						<property>/systems/pa-38/electrical/alternator-current</property>
+						<value>1.0</value>
 					</less-than>
 					<less-than>
 						<property>controls/switches/master-alt</property>

@@ -1,4 +1,10 @@
 ##########################################
+# ALS strobe Light
+##########################################
+
+aircraft.light.new("/sim/model/pa38/lighting/strobe", [0.045, 1.985]);
+
+##########################################
 # Autostart
 ##########################################
 
@@ -9,18 +15,13 @@ var autostart = func (msg=1) {
         return;
     }
 
-    # Filling fuel tanks
-#    setprop("/fdm/jsbsim/propulsion/tank[1]/collector-valve", 1);
-#    setprop("/fdm/jsbsim/propulsion/tank[2]/collector-valve", 1);
-	
-
     # Setting levers and switches for startup
     setprop("/controls/switches/magnetos", 3);
 	setprop("/controls/fuel/fuel-selector", 1);
     setprop("/controls/engines/engine/throttle", 0.1);
     setprop("/controls/engines/engine/mixture", 1.00);
     setprop("/controls/flight/elevator-trim", -0.05);
-    setprop("/controls/switches/master-bat", 1);
+    setprop("/controls/switches/master-batt", 1);
     setprop("/controls/switches/master-alt", 1);
 	setprop("/controls/engines/engine/primer", 3);
 
@@ -264,6 +265,15 @@ var click = func (name, timeout=0.1, delay=0) {
     }, delay);
 };
 
+############################################
+# Engine coughing sound
+############################################
+
+setlistener("/engines/engine[0]/killed", func (node) {
+    if (node.getValue() and getprop("/engines/engine[0]/running")) {
+        click("coughing-engine-sound", 0.7, 0);
+    };
+});
 
 # ADF freequencies
 var originalfreq  = getprop("/instrumentation/adf/frequencies/selected-khz");
@@ -344,6 +354,30 @@ setlistener("/instrumentation/comm[0]/frequencies/decimal2y3-mhz", func (node) {
 setlistener("/pax/pilot/present", update_pax, 0, 0);
 setlistener("/pax/co-pilot/present", update_pax, 0, 0);
 update_pax();
+
+###########################
+# Handle Yokes transparency
+###########################
+var updateYokeTransparency = func() {
+    var hideL = getprop("/sim/model/hide-yokeL") or 0;
+	var hideR = getprop("/sim/model/hide-yokeR") or 0;
+    if (hideL == 1) {
+        alphaL = getprop("sim/model/hide-yoke-alpha-cmd");
+    } else {
+        alphaL = 1;
+    }
+    if (hideR == 1) {
+        alphaR = getprop("sim/model/hide-yoke-alpha-cmd");
+    } else {
+        alphaR = 1;
+    }
+
+    setprop("/sim/model/hide-yoke-alphaL", alphaL);
+	setprop("/sim/model/hide-yoke-alphaR", alphaR);
+}
+setlistener("/sim/model/hide-yokeL", updateYokeTransparency, 1, 0);
+setlistener("/sim/model/hide-yokeR", updateYokeTransparency, 1, 0);
+setlistener("/sim/model/hide-yoke-alpha-cmd", updateYokeTransparency, 1, 0);
 
 setlistener("/engines/engine/running", func (node) {
 	var autostart = getprop("/engines/engine/auto-start");

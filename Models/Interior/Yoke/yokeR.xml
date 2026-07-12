@@ -1,82 +1,63 @@
 <?xml version="1.0" ?> 
   <PropertyList> 
     <path>yoke.ac</path> 
-    
-  <!--
-	<effect>
-        <inherits-from>../../../../Effects/interior/c172p-interior</inherits-from>
-		<object-name>Yoke</object-name>
-		<object-name>YokeMount</object-name>
-    </effect>
--->
-
- <animation>
-  <type>translate</type>
-  <object-name>yoke</object-name>
-  <property>controls/flight/elevator</property>
-  <factor>-0.1</factor>
-  <axis>
-   <x>1.0</x>
-   <y>0.0</y>
-   <z>0.0</z>
-  </axis>
- </animation>
-
- <animation>
-  <type>rotate</type>
-  <object-name>yoke</object-name>
-  <property>controls/flight/aileron</property>
-  <factor>-90.0</factor>
-  <axis>
-   <x>1.0</x>
-   <y>0.0</y>
-   <z>0.0</z>
-  </axis>
-  <center>
-   <x-m>0</x-m>
-   <y-m>0</y-m>
-   <z-m>0</z-m>
-  </center>
- </animation>
 
 	<animation>
-		<type>select</type>
+		<type>translate</type>
 		<object-name>yoke</object-name>
-		<condition>
-			<and>
-				<not-equals>
-					<property>sim/current-view/view-number</property>
-					<value>9</value>
-				</not-equals>
-				<not-equals>
-					<property>sim/current-view/view-number</property>
-					<value>10</value>
-				</not-equals>
-				<not>
-					<property>sim/model/hide-yokeR</property>
-				</not>
-			</and>
-		</condition>
+		<property>controls/flight/elevator</property>
+		<factor>-0.1</factor>
+		<axis>
+			<x>1.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+		</axis>
 	</animation>
 
- <animation>
-   <type>pick</type>
-   <object-name>YokeMount</object-name>
-   <visible>true</visible>
-   <action>
-     <button>0</button>
-     <repeatable>false</repeatable>
-     <binding>
-       <command>property-toggle</command>
-       <property>sim/model/hide-yokeR</property>
-     </binding>
-   </action>
-   <hovered>
-     <binding>
-        <command>set-tooltip</command>
-        <tooltip-id>show-hide-yoke</tooltip-id>
-        <label>Show/Hide Right Yoke</label>
-     </binding>
-   </hovered>
- </animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>yoke</object-name>
+		<property>controls/flight/aileron</property>
+		<factor>-90.0</factor>
+		<axis>
+			<x>1.0</x>
+			<y>0.0</y>
+			<z>0.0</z>
+		</axis>
+		<center>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</center>
+	</animation>
+
+    <animation>
+        <type>material</type>
+		<object-name>yoke</object-name>>
+        <transparency>
+            <alpha-prop>sim/model/hide-yoke-alphaR</alpha-prop>
+        </transparency>
+    </animation>	
+	
+	<animation>
+		<type>pick</type>
+		<object-name>YokeMount</object-name>
+		<visible>true</visible>
+		<action>
+			<button>0</button>
+			<repeatable>false</repeatable>
+			<binding>
+				<command>property-toggle</command>
+				<property>sim/model/hide-yokeR</property>
+			</binding>
+		</action>
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>show-hide-yokeR</tooltip-id>
+				<label>Show/Hide Right Yoke</label>
+			</binding>
+		</hovered>
+	</animation>
+	
 </PropertyList>

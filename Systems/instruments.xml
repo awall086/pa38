@@ -39,21 +39,78 @@
     </filter>
 
    <logic>
-        <name>Nav Power on-off</name>
+        <name>Com serviceable</name>
         <input>
             <and>
                 <less-than>
-                    <property>/systems/electrical/outputs/nav[0]</property>
-                    <value>14.5</value>
+                    <property>/systems/pa-38/electrical/outputs/com1</property>
+                    <value>15.5</value>
                 </less-than>
                 <greater-than>
-                    <property>/systems/electrical/outputs/nav[0]</property>
-                    <value>10.0</value>
+                    <property>/systems/pa-38/electrical/outputs/com1</property>
+                    <value>8.0</value>
                 </greater-than>
             </and>
         </input>
         <output>
-            <property>instrumentation/nav[0]/power-btn</property>
+            <property>instrumentation/com[0]/serviceable</property>
+        </output>
+    </logic>
+
+   <logic>
+        <name>Nav serviceable</name>
+        <input>
+            <and>
+                <less-than>
+                    <property>/systems/pa-38/electrical/outputs/nav1</property>
+                    <value>15.5</value>
+                </less-than>
+                <greater-than>
+                    <property>/systems/pa-38/electrical/outputs/nav1</property>
+                    <value>8.0</value>
+                </greater-than>
+            </and>
+        </input>
+        <output>
+            <property>instrumentation/nav[0]/serviceable</property>
+        </output>
+    </logic>
+
+   <logic>
+        <name>adf serviceable</name>
+        <input>
+            <and>
+                <less-than>
+                    <property>/systems/pa-38/electrical/outputs/adf</property>
+                    <value>15.5</value>
+                </less-than>
+                <greater-than>
+                    <property>/systems/pa-38/electrical/outputs/adf</property>
+                    <value>8.0</value>
+                </greater-than>
+            </and>
+        </input>
+        <output>
+            <property>instrumentation/adf[0]/serviceable</property>
+        </output>
+    </logic>
+
+   <logic>
+        <name>Turn indicator power</name>
+        <input>
+            <and>
+                <less-than>
+                    <property>/systems/pa-38/electrical/bus-voltage</property>
+                    <value>15.5</value>
+                </less-than>
+                <greater-than>
+                    <property>/systems/pa-38/electrical/bus-voltage</property>
+                    <value>8.0</value>
+                </greater-than>
+            </and>
+        </input>
+        <output>
+            <property>instrumentation/turn-indicator/power-btn</property>
         </output>
     </logic>
 
@@ -172,7 +229,7 @@
             </condition>
         </enable>
         <input>
-            <property>/controls/anti-ice/engine/carb-heat</property>
+            <property>/controls/anti-ice/engine[0]/carb-heat</property>
         </input>
         <output>
             <property>sim/model/pa38/carb-heat-animation</property>
@@ -195,6 +252,42 @@
         </input>
         <output>
             <property>sim/model/pa38/fuel-selector-animation</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>Stall Horn Volume</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/fdm/jsbsim/sounds/stall-horn-volume</property>
+        </input>
+        <output>
+            <property>/fdm/jsbsim/sounds/stall-horn-volume-actual</property>
+        </output>
+    </filter>
+
+    <filter>
+        <name>Stall Horn Pitch</name>
+        <type>gain</type>
+        <enable>
+            <condition>
+                <not>
+                    <property>/sim/freeze/replay-state</property>
+                </not>
+            </condition>
+        </enable>
+        <input>
+            <property>/fdm/jsbsim/sounds/stall-horn-pitch</property>
+        </input>
+        <output>
+            <property>/fdm/jsbsim/sounds/stall-horn-pitch-actual</property>
         </output>
     </filter>
 	

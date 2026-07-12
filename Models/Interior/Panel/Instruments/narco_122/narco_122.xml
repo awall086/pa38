@@ -19,55 +19,7 @@
         <nav-audio>instrumentation/nav[0]/ident-audible</nav-audio>
 	</params>
 
- <path>narco_122.ac</path>
-
- <!--
- <effect>
-  <inherits-from>../../../../Effects/interior/c172p-flashlight</inherits-from>
-  <object-name>Face</object-name>
-  <object-name>GlideslopeNeedle</object-name>
-  <object-name>Ring</object-name>
-  <object-name>LocalizerNeedle</object-name>
-  <object-name>Front</object-name>
-  <object-name>TO</object-name>
-  <object-name>FR</object-name>
-  <object-name>NAV</object-name>
-  <object-name>GS_out_of_range</object-name>
-  <object-name>GS_in_range</object-name>
-  <object-name>radial_knob</object-name>
- </effect>
- -->
-
-<!-- <animation>
-  <type>material</type>
-  <object-name>Face</object-name>
-  <object-name>GlideslopeNeedle</object-name>
-  <object-name>Ring</object-name>
-  <object-name>LocalizerNeedle</object-name>
-  <object-name>Front</object-name>
-  <object-name>TO</object-name>
-  <object-name>FR</object-name>
-  <object-name>NAV</object-name>
-  <object-name>GS_out_of_range</object-name>
-  <object-name>GS_in_range</object-name>
-  <emission>
-   <red>1.0</red>
-   <green>0.2</green>
-   <blue>0.0</blue>
-   <factor-prop>/sim/model/material/instruments/factor</factor-prop>
-  </emission>
- </animation>
-
- <animation>
-  <type>material</type>
-  <object-name>disk</object-name>
-  <emission>
-   <red>0.45</red>
-   <green>0.09</green>
-   <blue>0.00001</blue>
-   <factor-prop>/sim/model//material/instruments/factor</factor-prop>
-  </emission>
- </animation> -->
+	<path>narco_122.ac</path>
  
  	<animation>
 		<type>material</type>
@@ -118,301 +70,343 @@
 		</condition>
 	</animation>
 
- <animation>
-  <type>select</type>
-  <object-name>GS_out_of_range</object-name>
-  <condition>
-   <not>
-    <property alias="../../../../params/gs-in-range"/>
-   </not>
-  </condition>
- </animation>
+	<animation>
+		<type>select</type>
+		<object-name>GS_out_of_range</object-name>
+		<condition>
+			<not>
+				<property alias="../../../../params/gs-in-range"/>
+			</not>
+		</condition>
+	</animation>
 
- <animation>
-  <type>select</type>
-  <object-name>NAV</object-name>
-  <condition>
-   <not>
-    <property alias="../../../../params/nav-in-range"/>
-   </not>
-  </condition>
- </animation>
+	<animation>
+		<type>select</type>
+		<object-name>NAV</object-name>
+		<condition>
+			<not>
+				<property alias="../../../../params/nav-in-range"/>
+			</not>
+		</condition>
+	</animation>
 
- <animation>
-  <type>select</type>
-  <object-name>TO</object-name>
-  <condition>
-   <property alias="../../../params/nav-to-flag"/>
-  </condition>
- </animation>
+	<animation>
+		<type>select</type>
+		<object-name>TO</object-name>
+		<condition>
+			<property alias="../../../params/nav-to-flag"/>
+		</condition>
+	</animation>
 
- <animation>
-  <type>select</type>
-  <object-name>FROM</object-name>
-  <condition>
-   <property alias="../../../params/nav-from-flag"/>
-  </condition>
- </animation>
+	<animation>
+		<type>select</type>
+		<object-name>FROM</object-name>
+		<condition>
+			<property alias="../../../params/nav-from-flag"/>
+		</condition>
+	</animation>
 
- <animation>
-  <name>GlideslopeNeedleTransform</name>
-  <type>translate</type>
-  <object-name>GlideslopeNeedle</object-name>
-   <property alias="../../params/nav-gs-needle-deflection"/>
-<interpolation>
-	<entry><ind>-1.0</ind><dep>-0.012</dep></entry>
-	<entry><ind>0.0</ind><dep>0</dep></entry>
-	<entry><ind>1.0</ind><dep>0.012</dep></entry>
-</interpolation>
-  <axis>
-   <x>0</x>
-   <y>0</y>
-   <z>1</z>
-  </axis>
- </animation>
+	<animation>
+		<name>GlideslopeNeedleTransform</name>
+		<type>translate</type>
+		<object-name>GlideslopeNeedle</object-name>
+		<property alias="../../params/nav-gs-needle-deflection"/>
+		<interpolation>
+			<entry><ind>-1.0</ind><dep>-0.012</dep></entry>
+			<entry><ind>0.0</ind><dep>0</dep></entry>
+			<entry><ind>1.0</ind><dep>0.012</dep></entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>0</y>
+			<z>1</z>
+		</axis>
+	</animation>
 
- <animation>
-  <name>RingTransform</name>
-  <type>rotate</type>
-  <object-name>Ring</object-name>
-   <property alias="../../params/nav-radial-selected"/>
-  <factor>-1</factor>
-  <axis>
-   <x>-1</x>
-   <y>0</y>
-   <z>0</z>
-  </axis>
- </animation> -->
+	<animation>
+		<name>RingTransform</name>
+		<type>rotate</type>
+		<object-name>Ring</object-name>
+		<property alias="../../params/nav-radial-selected"/>
+		<factor>-1</factor>
+		<axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation> -->
 
-<!-- VOR 1 Radial adjust -->
+	<!-- VOR 1 Radial adjust -->
 
-<animation>
-    <type>knob</type>
-    <object-name>radial_knob</object-name>
-    <property>/instrumentation/nav[0]/radials/selected-deg</property>
-    <factor>-8</factor>
-
-    <axis>
-        <x>1</x>
-        <y>0</y>
-        <z>0</z>
-    </axis>
-    <center>
-        <x-m>0.012884</x-m>
-        <y-m>-0.034772</y-m>
-        <z-m>-0.038662</z-m>
-    </center>
-
-    <shift-repeat type="int">5</shift-repeat>
-     
-    <action>
-        <binding>
-            <command>property-adjust</command>
-            <property>/instrumentation/nav[0]/radials/selected-deg</property>
-            <factor>1</factor>
-            <min>0</min>
-            <max>360</max>
-            <wrap>1</wrap>
-        </binding>
+	<animation>
+		<type>knob</type>
+		<object-name>radial_knob</object-name>
+		<property>/instrumentation/nav[0]/radials/selected-deg</property>
+		<factor>-8</factor>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+		<center>
+			<x-m>0.012884</x-m>
+			<y-m>-0.034772</y-m>
+			<z-m>-0.038662</z-m>
+		</center>
+		<shift-repeat type="int">5</shift-repeat>     
+		<action>
 			<binding>
-				<command>nasal</command>
-				<script>pa38.click("dial")</script>
+				<command>property-adjust</command>
+				<property>/instrumentation/nav[0]/radials/selected-deg</property>
+				<factor>1</factor>
+				<min>0</min>
+				<max>360</max>
+				<wrap>1</wrap>
 			</binding>
-    </action>
+				<binding>
+					<command>nasal</command>
+					<script>pa38.click("dial")</script>
+				</binding>
+		</action>   
+		<hovered>
+			<binding>
+				<command>set-tooltip</command>
+				<tooltip-id>nav1-obs</tooltip-id>
+				<label>Nav 1 Radial %3d</label>
+				<mapping>heading</mapping>
+				<property>/instrumentation/nav[0]/radials/selected-deg</property>
+			</binding>
+		</hovered>
+	</animation>
+     
+	<!-- Nav part -->
+
+	<animation>
+		<type>textranslate</type>
+		<object-name>NavUse10M</object-name>
+		<property alias="../../params/nav-frq-selected"/>
+		<step>10</step>
+		<factor>0.01</factor>
+		<bias>0.0001</bias>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>textranslate</type>
+		<object-name>NavUse1M</object-name>
+		<property alias="../../params/nav-frq-selected"/>
+		<step>1</step>
+		<factor>0.1</factor>
+		<bias>0.0001</bias>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>textranslate</type>
+		<object-name>NavUse100K</object-name>
+		<property alias="../../params/nav-frq-selected"/>
+		<step>0.1</step>
+		<factor>1</factor>
+		<bias>0.0001</bias>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<animation>
+		<type>textranslate</type>
+		<object-name>NavUse10K</object-name>
+		<property alias="../../params/nav-frq-selected"/>
+		<step>0.01</step>
+		<factor>10</factor>
+		<bias>0.0001</bias>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+	</animation>
+
+	<!-- actions -->
+
+	<animation>
+		<type>knob</type>
+		<object-name>NavVolume</object-name>
+		<property alias="../../params/nav-volume"/>
+		<factor>-280</factor>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+		<center>
+			<x-m>0.012884</x-m>
+			<y-m>0.038072</y-m>
+			<z-m>0.037536</z-m>
+		</center>
+		<action>
+			<binding>
+				<command>property-adjust</command>
+				<property alias="../../../../params/nav-volume"/>
+				<factor>0.1</factor>
+				<min>-0.1</min>
+				<max>1.0</max>
+				<wrap>false</wrap>
+			</binding>
+
+            <binding>
+                <condition>
+                    <greater-than>
+                        <property>/instrumentation/nav[0]/volume</property>
+                        <value>-0.1</value>
+                    </greater-than>
+                </condition>
+                <command>property-assign</command>
+                <property>/instrumentation/nav[0]/power-btn</property>
+                <value type="bool">1</value>
+            </binding>
     
-    <hovered>
-     <binding>
-       <command>set-tooltip</command>
-       <tooltip-id>nav1-obs</tooltip-id>
-       <label>Nav 1 Radial %3d</label>
-       <mapping>heading</mapping>
-       <property>/instrumentation/nav[0]/radials/selected-deg</property>
-    </binding>
-    </hovered>
- </animation>
-     
-  <!-- Nav part -->
+            <!-- switch off if volume less than 0.1 -->
+            <binding>
+                <condition>
+                    <less-than>
+                        <property>/instrumentation/nav[0]/volume</property>
+                        <value>0.0</value>
+                    </less-than>
+                </condition>
+                <command>property-assign</command>
+                <property>/instrumentation/nav[0]/power-btn</property>
+                <value type="bool">0</value>
+            </binding>
 
-  <animation>
-    <type>textranslate</type>
-    <object-name>NavUse10M</object-name>
-    <property alias="../../params/nav-frq-selected"/>
-    <step>10</step>
-    <factor>0.01</factor>
-    <bias>0.0001</bias>
-    <axis>
-      <x>1</x>
-      <y>0</y>
-      <z>0</z>
-    </axis>
-  </animation>
 
-  <animation>
-    <type>textranslate</type>
-    <object-name>NavUse1M</object-name>
-    <property alias="../../params/nav-frq-selected"/>
-    <step>1</step>
-    <factor>0.1</factor>
-    <bias>0.0001</bias>
-    <axis>
-      <x>1</x>
-      <y>0</y>
-      <z>0</z>
-    </axis>
-  </animation>
-
-  <animation>
-    <type>textranslate</type>
-    <object-name>NavUse100K</object-name>
-    <property alias="../../params/nav-frq-selected"/>
-    <step>0.1</step>
-    <factor>1</factor>
-    <bias>0.0001</bias>
-    <axis>
-      <x>1</x>
-      <y>0</y>
-      <z>0</z>
-    </axis>
-  </animation>
-
-  <animation>
-    <type>textranslate</type>
-    <object-name>NavUse10K</object-name>
-    <property alias="../../params/nav-frq-selected"/>
-    <step>0.01</step>
-    <factor>10</factor>
-    <bias>0.0001</bias>
-    <axis>
-      <x>1</x>
-      <y>0</y>
-      <z>0</z>
-    </axis>
-  </animation>
-
-<!-- actions -->
-
-  <animation>
-    <type>knob</type>
-    <object-name>NavVolume</object-name>
-    <property alias="../../params/nav-volume"/>
-    <factor>-280</factor>
-    <axis>
-      <x>1</x>
-      <y>0</y>
-      <z>0</z>
-    </axis>
-    <center>
-      <x-m>0.012884</x-m>
-      <y-m>0.038072</y-m>
-      <z-m>0.037536</z-m>
-    </center>
-    <action>
-      <binding>
-        <command>property-adjust</command>
-        <property alias="../../../../params/nav-volume"/>
-        <factor>0.1</factor>
-        <min>0.0</min>
-        <max>1.0</max>
-        <wrap>false</wrap>
-      </binding>
 			<binding>
 				<command>nasal</command>
 				<script>pa38.click("dial")</script>
 			</binding>
-    </action>
-    <hovered>
-      <binding>
-        <command>set-tooltip</command>
-        <tooltip-id>nav-volume</tooltip-id>
-        <label>Volume: %3d%%</label>
-        <property alias="../../../../params/nav-volume"/>
-        <mapping>percent</mapping>
-      </binding>
-    </hovered>
-  </animation>
+		</action>
+		<hovered>
+			<binding>
+			    <condition>
+                    <greater-than>
+                        <property>/instrumentation/nav[0]/volume</property>
+                        <value>-0.1</value>
+                    </greater-than>
+                </condition>
+				<command>set-tooltip</command>
+				<tooltip-id>nav-volume</tooltip-id>
+				<label>Volume: %3d%%</label>
+				<property alias="../../../../params/nav-volume"/>
+				<mapping>percent</mapping>
+			</binding>
+			<binding>
+				<condition>
+					<less-than>
+						<property>/instrumentation/nav[0]/volume</property>
+						<value>0.0</value>
+					</less-than>
+				</condition>
+				<command>set-tooltip</command>
+				<tooltip-id>nav power</tooltip-id>
+				<label>Narco NAV 122: %s</label>
+				<mapping>on-off</mapping>
+				<property>/instrumentation/nav[0]/power-btn</property>
+			</binding>
+		</hovered>
+	</animation>
 
-  <animation>
-    <type>knob</type>
-    <object-name>NavKHz</object-name>
-    <property alias="/params/nav-dial-khz"/>
-    <factor>-0.25</factor>
-    <axis>
-      <x>1</x>
-      <y>0</y>
-      <z>0</z>
-    </axis>
-    <center>
-      <x-m>0.027751</x-m>
-      <y-m>0.036462</y-m>
-      <z-m>-0.039199</z-m>
-    </center>
-    <action>
-      <binding>
-        <command>property-adjust</command>
-        <property alias="/params/nav-frq-selected"/>
-        <factor>0.05</factor>
-        <min>0.0</min>
-        <max>1.0</max>
-        <resolution>0.050</resolution>
-        <wrap>true</wrap>
-        <mask>decimal</mask>
-      </binding>
-      <binding>
-        <command>property-adjust</command>
-        <property alias="/params/nav-dial-khz"/>
-        <factor>4</factor>
-        <min>0</min>
-        <max>360</max>
-        <wrap>true</wrap>
-      </binding>
+	<animation>
+		<type>knob</type>
+		<object-name>NavKHz</object-name>
+		<property alias="/params/nav-dial-khz"/>
+		<factor>-0.25</factor>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+		<center>
+			<x-m>0.027751</x-m>
+			<y-m>0.036462</y-m>
+			<z-m>-0.039199</z-m>
+		</center>
+		<action>
+			<binding>
+				<command>property-adjust</command>
+				<property alias="/params/nav-frq-selected"/>
+				<factor>0.05</factor>
+				<min>0.0</min>
+				<max>1.0</max>
+				<resolution>0.050</resolution>
+				<wrap>true</wrap>
+				<mask>decimal</mask>
+			</binding>
+			<binding>
+				<command>property-adjust</command>
+				<property alias="/params/nav-dial-khz"/>
+				<factor>4</factor>
+				<min>0</min>
+				<max>360</max>
+				<wrap>true</wrap>
+			</binding>
 			<binding>
 				<command>nasal</command>
 				<script>pa38.click("dial")</script>
 			</binding>
-    </action>
-  </animation>
+		</action>
+	</animation>
 
-  <animation>
-    <type>knob</type>
-    <object-name>NavMHz</object-name>
-    <property alias="/params/nav-dial-mhz"/>
-    <factor>-0.25</factor>
-    <axis>
-      <x>1</x>
-      <y>0</y>
-      <z>0</z>
-    </axis>
-    <center>
-      <x-m>0.014573</x-m>
-      <y-m>0.036462 </y-m>
-      <z-m>-0.039199</z-m>
-    </center>
-    <action>
-      <binding>
-        <command>property-adjust</command>
-        <property alias="/params/nav-frq-selected"/>
-        <factor>1</factor>
-        <min>108.0</min>
-        <max>118.0</max>
-        <wrap>true</wrap>
-        <mask>integer</mask>
-      </binding>
-      <binding>
-        <command>property-adjust</command>
-        <property alias="/params/nav-dial-mhz"/>
-        <factor>4</factor>
-        <min>0</min>
-        <max>360</max>
-        <wrap>true</wrap>
-      </binding>
+	<animation>
+		<type>knob</type>
+		<object-name>NavMHz</object-name>
+		<property alias="/params/nav-dial-mhz"/>
+		<factor>-0.25</factor>
+		<axis>
+			<x>1</x>
+			<y>0</y>
+			<z>0</z>
+		</axis>
+		<center>
+			<x-m>0.014573</x-m>
+			<y-m>0.036462 </y-m>
+			<z-m>-0.039199</z-m>
+		</center>
+		<action>
+			<binding>
+				<command>property-adjust</command>
+				<property alias="/params/nav-frq-selected"/>
+				<factor>1</factor>
+				<min>108.0</min>
+				<max>118.0</max>
+				<wrap>true</wrap>
+				<mask>integer</mask>
+			</binding>
+			<binding>
+				<command>property-adjust</command>
+				<property alias="/params/nav-dial-mhz"/>
+				<factor>4</factor>
+				<min>0</min>
+				<max>360</max>
+				<wrap>true</wrap>
+			</binding>
 			<binding>
 				<command>nasal</command>
 				<script>pa38.click("dial")</script>
 			</binding>
-    </action>
-  </animation>
+		</action>
+	</animation>
 
-<!-- Localizer markers -->
+	<!-- Localizer markers -->
 
 	<animation>
 		<object-name>inner_marker</object-name>
@@ -497,15 +491,6 @@
             <factor-prop>/instrumentation/marker-beacon/omBright</factor-prop>
         </emission>
     </animation>
-	
-<!-- <animation>
-  <name>Alpha Order Group</name>
-  <object-name>Face</object-name>
-  <object-name>LocalizerNeedleTransform</object-name>
-  <object-name>GlideslopeNeedleTransform</object-name>
-  <object-name>RingTransform</object-name>
-  <object-name>Front</object-name>
- </animation> -->
 
 </PropertyList>
 

@@ -77,6 +77,104 @@ var primerTimer = maketimer(5, func {
     primerTimer.stop();
 });
 
+# ========== carburetor icing ======================
+
+var carb_icing_function = maketimer(1.0, func {
+	var carb_heat = getprop("/controls/anti-ice/engine[0]/carb-heat");
+	var eng_rpm = getprop("/engines/engine[0]/rpm");
+	var cht_degf = getprop("/engines/engine[0]/cht-degf");
+    var airtempF = getprop("/environment/temperature-degf");
+
+	if ( eng_rpm > 0 ) 
+		var carb_temp = ((((airtempF - (66 - (eng_rpm/100))) + (cht_degf/20) + (15 * carb_heat)) - 32) * 5) / 9;
+	else
+		var carb_temp = 0.0;
+	setprop("/engines/engine[0]/carb_temp", carb_temp);
+	
+    if (getprop("/engines/engine[0]/carb_icing_allowed")) {
+        var rpm = getprop("/engines/engine[0]/rpm");
+        var dewpointC = getprop("/environment/dewpoint-degc");
+        var dewpointF = dewpointC * 9.0 / 5.0 + 32;
+        var oil_temp = getprop("/engines/engine[0]/oil-temperature-degf");
+        var egt_degf = getprop("/engines/engine[0]/egt-degf");
+        var engine_running = getprop("/engines/engine[0]/running");
+        var carb_ice = getprop("/engines/engine[0]/carb_ice");
+
+
+        # the formula below attempts to model the graph found in the POH which relates air temperature, dew point and RPM to icing
+        # conditions. The outputs of carb_icing_formula ranges from 0.65 to -0.35 (positive means ice is accumulating, negative
+        # means that ice is melting)
+        var factorX = 13.2 - 3.2 * math.atan2 ( ((rpm - 2000.0) * 0.008), 1);
+        var factorY = 7.0 - 2.0 * math.atan2 ( ((rpm - 2000.0) * 0.008), 1);
+        var carb_icing_formula = (math.exp( math.pow((0.6 * airtempF + 0.3 * dewpointF - 42.0),2) / (-2 * math.pow(factorX,2))) * math.exp( math.pow((0.3 * airtempF - 0.6 * dewpointF + 14.0),2) / (-2 * math.pow(factorY,2))) - 0.35)  * engine_running;
+
+        # the efficacy of carb heat depends on the EGT. With a typical EGT of ~1500, the carb_heat_rate will be around -1.5.
+        # This value is an educated guess of the RL effect, and should melt ice regardless of the icing rate
+        if (getprop("/controls/engines/engine[0]/carb-heat"))
+            var carb_heat_rate = -0.001 * egt_degf;
+        else
+            var carb_heat_rate = 0.0;
+
+        # a warm engine will accumulate less ice than a cold one, which is what oil temp factor is used for. oil_temp_factor
+        # ranges from 0 to aprox -0.2 (at 250 oF). These values are educated guesses of the RL effect
+        var oil_temp_factor = oil_temp / -1250;
+
+        # the final rate of icing or melting is then calculated by all these effects together
+        var carb_icing_rate = carb_icing_formula + carb_heat_rate + oil_temp_factor;
+
+        # since the carb_icing_rate gives an arbitrary final value, the rate is then scaled down by 0.00001 to ensure ice
+        # accumulates as slowly as expected
+        carb_ice = carb_ice + carb_icing_rate * 0.00001;
+        carb_ice = std.max(0.0, std.min(carb_ice, 1.0));
+
+        # this property is used to lower the RPM of the engine as ice accumulates (more ice in the carburator == less power)
+        var vol_eff_factor = std.max(0.0, 0.85 - 1.72 * carb_ice);
+
+        setprop("/engines/engine[0]/carb_ice", carb_ice);
+        setprop("/engines/engine[0]/carb_icing_rate", carb_icing_rate);
+        setprop("/engines/engine[0]/volumetric-efficiency-factor", vol_eff_factor);
+        setprop("/engines/engine[0]/oil_temp_factor", oil_temp_factor);
+    }
+    else {
+        setprop("/engines/engine[0]/carb_ice", 0.0);
+        setprop("/engines/engine[0]/carb_icing_rate", 0.0);
+        setprop("/engines/engine[0]/volumetric-efficiency-factor", 0.85);
+        setprop("/engines/engine[0]/oil_temp_factor", 0.0);
+    };
+});
+
+# ========== engine coughing ======================
+
+var engine_coughing = func(){
+
+    var coughing = getprop("/engines/engine[0]/coughing");
+    var running = getprop("/engines/engine[0]/running");
+
+    if (coughing and running) {
+        # the code below kills the engine and then brings it back to life after 0.25 seconds, simulating a cough
+        setprop("/engines/engine[0]/kill-engine", 1);
+        settimer(func {
+            setprop("/engines/engine[0]/kill-engine", 0);
+        }, 0.25);
+    };
+
+    # basic value for the delay (interval between consecutive coughs), in case no fuel contamination nor carb ice are present
+    var delay = 2;
+
+    # if coughing due to carb ice melting, then cough depends on quantity of ice in the carburettor
+    var carb_ice = getprop("/engines/engine[0]/carb_ice");
+    if (carb_ice > 0) {
+        # if carb_ice is near 0, then interval is between 17 and 20 seconds, but if carb_ice is near the
+        # engine stopping value of 0.3, then interval falls to around 0.5 and 3.5 seconds
+        delay = 3.0 * rand() + 17 - 41.25 * carb_ice;
+    };
+
+    coughing_timer.restart(delay);
+
+}
+
+var coughing_timer = maketimer(1, engine_coughing);
+
 # ====== Engine starting actions ======
 var engine_starting = props.globals.initNode("/engines/engine/starting", 0, "BOOL");
 setlistener("/engines/engine/running", func(ngn){
@@ -174,10 +272,7 @@ setlistener("/controls/switches/starter", func {
     }
     else {
         print("Starter on");
-        if(getprop("/controls/panel/glass"))
-            setprop("/controls/engines/engine/use-primer", 0); 
-        else
-            setprop("/controls/engines/engine/use-primer", 1);
+        setprop("/controls/engines/engine/use-primer", 1);
         if (primerTimer.isRunning) {
             primerTimer.stop();
         }
@@ -188,4 +283,6 @@ var engine_timer = maketimer(UPDATE_PERIOD, func { update(); });
 
 setlistener("/sim/signals/fdm-initialized", func {
     engine_timer.start();
+	carb_icing_function.start();
+    coughing_timer.start();
 });

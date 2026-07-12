@@ -68,5 +68,38 @@
         </fcs_function>
 	
     </channel>
+
+    <channel name="Oil Pressure">
+
+		<fcs_function name="/engines/engine[0]/oil-pressure">
+
+			<function>
+                <ifthen>
+					<gt>
+						<property>/engines/engine[0]/oil-pressure-psi</property>
+						<value>0</value>
+					</gt>
+					<product>
+						<sum>
+							<value>1</value>
+							<product>
+								<value>5</value>
+								<exp>
+									<product>
+										<value>-0.08</value>
+										<property>/engines/engine[0]/oil-pressure-psi</property>
+									</product>
+								</exp>
+							</product>
+						</sum>
+						<property>/engines/engine[0]/oil-pressure-psi</property>
+					</product>
+					<value>0</value>
+				</ifthen>
+			</function>
+
+		</fcs_function>
+		
+	</channel>
 	
 </system>

@@ -79,6 +79,18 @@
 		<object-name>Rfuel_cap</object-name>
 	</effect>
 
+
+	<effect>
+		<inherits-from>Aircraft/pa38/Models/Effects/interior/bumpspec-interior</inherits-from>
+		<object-name>interior</object-name>
+		<object-name>R_door_in</object-name>
+		<object-name>L_door_in</object-name>
+		<object-name>AsientoP</object-name>
+		<object-name>RespaldoP</object-name>
+		<object-name>AsientoC</object-name>
+		<object-name>RespaldoC</object-name>
+	</effect>
+	
     <animation>
         <type>noshadow</type>
 		<object-name>WindShield</object-name>
@@ -156,14 +168,6 @@
         <texture>obj5.png</texture>
     </animation>
 
- <!-- <effect>
-    <inherits-from>Effects/model-transparent</inherits-from>
-    <object-name>NavLightLOn</object-name>
-    <object-name>NavLightROn</object-name>
-    <object-name>BeaconLightOn</object-name>
-    <object-name>StrobeROn</object-name>
-    <object-name>StrobeLOn</object-name>
-</effect> -->
 
 <!-- Cockpit Instruments -->
 
@@ -993,46 +997,76 @@
 	</model>
 
     <!-- Left strobe light --> 
-    <model>
-        <name>strobe-light-right</name>
-        <path>Aircraft/pa38/Models/Effects/lights/procedural_light_right_strobe.xml</path>
-        <offsets>
+	<model>
+		<name>strobe-light-right</name>
+		<path>Aircraft/Generic/spotlight.xml</path>
+		<offsets>
 			<x-m> 2.35369</x-m>
 			<y-m> 5.32894</y-m>
 			<z-m> 0.021454</z-m>
-        </offsets>
-    </model>
-    <animation>
-        <type>select</type>
-        <object-name>strobe-light-right</object-name> 
-        <nopreview/>
-        <condition>
-            <and>
-		<property>controls/lighting/strobe</property>
-                <property>/sim/rendering/shaders/skydome</property>
-            </and>
-        </condition>
-    </animation>
+		</offsets>
+		<overlay>
+			<params>
+				<name>strobe-light-right</name>
+				<power-source>/controls/lighting/strobe</power-source>
+				<direction>
+					<x> 0.0</x>
+					<y>-1.0</y>
+					<z> 0.0</z>
+				</direction>
+				<ambient>
+					<r>1.0</r>
+					<g>1.0</g>
+					<b>1.0</b>
+				</ambient>
+				<specular>
+					<r>1.0</r>
+					<g>1.0</g>
+					<b>1.0</b>
+				</specular>
+			</params>
+		</overlay>
+	</model>
 
     <!-- Right strobe light --> 
-    <model>
-        <name>strobe-light-left</name>
-        <path>Aircraft/pa38/Models/Effects/lights/procedural_light_left_strobe.xml</path>
-        <offsets>
+	<model>
+		<name>strobe-light-left</name>
+		<path>Aircraft/Generic/spotlight.xml</path>
+		<offsets>
 			<x-m>2.35329</x-m>
 			<y-m>-5.32997</y-m>
 			<z-m>0.020727</z-m>
-        </offsets>
-     </model>
+		</offsets>
+		<overlay>
+			<params>
+				<name>strobe-light-left</name>
+				<power-source>/controls/lighting/strobe</power-source>
+				<direction>
+					<x> 0.0</x>
+					<y> 1.0</y>
+					<z> 0.0</z>
+				</direction>
+				<ambient>
+					<r>1.0</r>
+					<g>1.0</g>
+					<b>1.0</b>
+				</ambient>
+				<specular>
+					<r>1.0</r>
+					<g>1.0</g>
+					<b>1.0</b>
+				</specular>
+			</params>
+		</overlay>
+	</model>
+
     <animation>
         <type>select</type>
-        <object-name>strobe-light-left</object-name> 
+        <object-name>strobe-light-right</object-name>
+		<object-name>strobe-light-left</object-name>		
         <nopreview/>
         <condition>
-            <and>
-		<property>controls/lighting/strobe</property>
-                <property>/sim/rendering/shaders/skydome</property>
-            </and>
+			<property>/sim/model/pa38/lighting/strobe/state</property>
         </condition>
     </animation>
 

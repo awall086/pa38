@@ -220,31 +220,6 @@
                 <min>0</min>
                 <max>1.0</max>
             </binding>
-            
-            <binding>
-                <condition>
-                    <greater-than>
-                        <property>/instrumentation/adf[0]/volume-norm</property>
-                        <value>0.0</value>
-                    </greater-than>
-                </condition>
-                <command>property-assign</command>
-                <property>/instrumentation/adf[0]/power-btn</property>
-                <value type="bool">1</value>
-            </binding>
-    
-            <!-- switch off if volume less than 0.1 -->
-            <binding>
-                <condition>
-                    <less-than>
-                        <property>/instrumentation/adf[0]/volume-norm</property>
-                        <value>0.1</value>
-                    </less-than>
-                </condition>
-                <command>property-assign</command>
-                <property>/instrumentation/adf[0]/power-btn</property>
-                <value type="bool">0</value>
-            </binding>
 
             <binding>
                 <command>nasal</command>
@@ -270,7 +245,7 @@
 		<factor> 45 </factor>
 		<offset-deg>0</offset-deg>
 		<axis>
-			<x>  -1 </x>
+			<x> -1 </x>
 			<y>  0 </y>
 			<z>  0 </z>
 		</axis>
@@ -284,14 +259,53 @@
 				<command>property-adjust</command>
 				<property>/instrumentation/adf[0]/actual-mode</property>
 				<factor>1</factor>
-				<min>0</min>
+				<min>-1</min>
 				<max>2</max>
 				<wrap>0</wrap>
 			</binding>
+
+            <binding>
+                <condition>
+                    <greater-than>
+                        <property>/instrumentation/adf[0]/actual-mode</property>
+                        <value>-1</value>
+                    </greater-than>
+                </condition>
+                <command>property-assign</command>
+                <property>/instrumentation/adf[0]/power-btn</property>
+                <value type="bool">1</value>
+            </binding>
+
+            <!-- switch off if mode less than 0 -->
+            <binding>
+                <condition>
+                    <less-than>
+                        <property>/instrumentation/adf[0]/actual-mode</property>
+                        <value>0</value>
+                    </less-than>
+                </condition>
+                <command>property-assign</command>
+                <property>/instrumentation/adf[0]/power-btn</property>
+                <value type="bool">0</value>
+            </binding>
+
 			<binding>
 				<command>nasal</command>
 				<script>pa38.click("rotator")</script>
 			</binding>
+			
+            <binding>
+                <condition>
+                    <less-than>
+                        <property>/instrumentation/adf[0]/actual-mode</property>
+                        <value>0</value>
+                    </less-than>
+                </condition>
+                <command>property-assign</command>
+                <property>/instrumentation/adf[0]/mode</property>
+                <value>off</value>
+            </binding>
+
 		</action>
 		<hovered>
 			<binding>
@@ -300,7 +314,7 @@
 			  <label>ADF Mode: %s</label>
 			  <mapping>nasal</mapping>
 			  <script>
-					var modes = ['ADF', 'REC', 'BFO'];
+					var modes = ['ADF', 'REC', 'BFO', 'OFF'];
 					return modes[arg[0]];
 			  </script>
 			  <property>/instrumentation/adf[0]/actual-mode</property>

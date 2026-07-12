@@ -58,7 +58,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>oil_press_needle</object-name>
-		<property>engines/engine/oil-pressure-psi</property>
+		<property>engines/engine/oil-pressure</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -92,7 +92,7 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>alt_amps_needle</object-name>
-		<property>systems/electrical/amps</property>
+		<property>/systems/pa-38/electrical/alternator-current</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
@@ -122,23 +122,27 @@
 	<animation>
 		<type>rotate</type>
 		<object-name>fuel_press_needle</object-name>
-		<property>engines/engine[0]/fuel-flow-gph</property>
+		<property>/engines/engine[0]/fuel-pressure-psi</property>
 		<interpolation>
 			<entry>
 				<ind>0</ind>
 				<dep>0</dep>
 			</entry>
 			<entry>
-				<ind>0.45</ind>
+				<ind>4</ind>
 				<dep>32</dep>
 			</entry>
 			<entry>
+				<ind>5</ind>
+				<dep>48</dep>
+			</entry>
+			<entry>
 				<ind>8</ind>
-				<dep>45</dep>
+				<dep>60</dep>
 			</entry>
 			<entry>
 				<ind>10</ind>
-				<dep>46</dep>
+				<dep>65</dep>
 			</entry>
 		</interpolation>
 		<center>

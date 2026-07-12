@@ -2,38 +2,33 @@
 
 <PropertyList>
 
- <path>prk_brake.ac</path>
-
-<!--    <effect>
-        <inherits-from>Aircraft/c152/Models/Effects/interior/c152-interior-compartment</inherits-from>
-        <object-name>PrimerHandle</object-name>
-    </effect> -->
+	<path>prk_brake.ac</path>
      
     <!-- Parking Brake -->
-<animation>
-  <type>rotate</type>
-  <object-name>prk_brake_handle</object-name>
-    <object-name>prk_brake1</object-name>
-	<object-name>prk_brake2</object-name>
-  <property>/controls/gear/brake-parking</property>
-  <factor>-55.0</factor>
-  <axis>
-   <x>0.0</x>
-   <y>1.0</y>
-   <z>0.0</z>
-  </axis>
-  <center>
-   <x-m>0</x-m>
-   <y-m>0</y-m>
-   <z-m>0</z-m>
-  </center>
- </animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>prk_brake_handle</object-name>
+		<object-name>prk_brake1</object-name>
+		<object-name>prk_brake2</object-name>
+		<property>/controls/gear/brake-parking</property>
+		<factor>-55.0</factor>
+		<axis>
+			<x>0.0</x>
+			<y>1.0</y>
+			<z>0.0</z>
+		</axis>
+		<center>
+			<x-m>0</x-m>
+			<y-m>0</y-m>
+			<z-m>0</z-m>
+		</center>
+	</animation>
     <animation>
         <type>pick</type>
         <object-name>prk_brake_handle</object-name>
         <visible>true</visible>
         <action>
-            <button>0</button>
+			<button>0</button>
             <repeatable>false</repeatable>
             <binding>
                 <command>property-toggle</command>
@@ -50,6 +45,5 @@
             </binding>
         </hovered>
     </animation>
-
 
 </PropertyList>

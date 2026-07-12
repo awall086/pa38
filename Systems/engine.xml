@@ -56,11 +56,11 @@
         <input>
             <and>
                 <less-than>
-                    <property>/systems/electrical/outputs/starter</property>
+                    <property>/systems/pa-38/electrical/outputs/starter</property>
                     <value>14.5</value>
                 </less-than>
                 <greater-than>
-                    <property>/systems/electrical/outputs/starter</property>
+                    <property>/systems/pa-38/electrical/outputs/starter</property>
                     <value>8.0</value>
                 </greater-than>
 				<property>/controls/switches/starter</property>
@@ -68,6 +68,26 @@
         </input>
         <output>
             <property>/controls/engines/engine[0]/starter</property>
+        </output>
+    </logic>
+
+    <logic>
+        <name>Fuel Pump</name>
+        <input>
+            <and>
+                <less-than>
+                    <property>/systems/pa-38/electrical/outputs/fuel-pump</property>
+                    <value>14.5</value>
+                </less-than>
+                <greater-than>
+                    <property>/systems/pa-38/electrical/outputs/fuel-pump</property>
+                    <value>8.0</value>
+                </greater-than>
+				<property>/controls/switches/fuel-pump</property>
+            </and>
+        </input>
+        <output>
+            <property>/controls/fuel/tank[0]/boost-pump</property>
         </output>
     </logic>
 
@@ -107,5 +127,59 @@
             <property>/fdm/jsbsim/propulsion/tank[2]/collector-valve</property>
         </output>
     </logic>
+
+    <logic>
+        <name>Engine Killed</name>
+        <input>
+            <or>
+                <property>/engines/engine[0]/kill-engine</property>
+                <!-- engine is also killed if there is too much ice in the carburettor. Limit value is arbitrarily set to 0.32 -->
+                <greater-than-equals>
+                    <property>/engines/engine[0]/carb_ice</property>
+                    <value>0.32</value>
+                </greater-than-equals>
+            </or>
+        </input>
+        <output>
+            <property>/engines/engine[0]/killed</property>
+        </output>
+    </logic>
+
+    <!-- Low level of fuel contamination or just above oil minimal level makes engine cough-->
+    <logic>
+        <name>Engine Coughing</name>
+        <input>
+                <!-- engine coughs if ice is present in the carburettor and is melting at a noticiable rate -->
+                <and>
+                    <greater-than>
+                        <property>/engines/engine[0]/carb_ice</property>
+                        <value>0.0</value>
+                    </greater-than>
+                    <less-than>
+                        <property>/engines/engine[0]/carb_icing_rate</property>
+                        <value>-0.5</value>
+                    </less-than>
+                </and>
+
+        </input>
+        <output>
+            <property>/engines/engine[0]/coughing</property>
+        </output>
+    </logic>
+
+    <!-- ============================================================== -->
+    <!-- Carburetor Icing drops RPM                                     -->
+    <!-- ============================================================== -->
+
+    <filter>
+        <name>Carb Icing Factor</name>
+        <type>gain</type>
+        <input>
+            <property>/engines/engine[0]/volumetric-efficiency-factor</property>
+        </input>
+        <output>
+            <property>/fdm/jsbsim/propulsion/engine[0]/volumetric-efficiency</property>
+        </output>
+    </filter>
 	
 </PropertyList>

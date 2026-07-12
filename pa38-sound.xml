@@ -2,105 +2,165 @@
  
 <PropertyList>
 
- <fx>
+	<fx>
  
-  <crank>
-   <name>engstart</name>
-   <path>Sounds/engstart.wav</path>
-   <property>engines/engine/cranking</property>
-   <position>
-    <x>-1.0</x>
-    <y>0.0</y>
-    <z>0.0</z>
-   </position>
-   <volume>
-    <offset>0.4</offset>
-   </volume>
-  </crank>
+		<crank>
+			<name>engstart</name>
+			<path>Sounds/engstart.wav</path>
+			<property>engines/engine/cranking</property>
+			<position>
+				<x>-1.0</x>
+				<y>0.0</y>
+				<z>0.0</z>
+			</position>
+			<volume>
+                <factor>0.7143</factor>
+                <property>/sim/model/pa38/sound/volume-boost-doors</property>
+            </volume>
+			<volume>
+				<offset>0.4</offset>
+			</volume>
+		</crank>
 
-  <crank>
-   <name>crank</name>
-   <mode>looped</mode>
-   <path>Sounds/cranking.wav</path>
-   <condition>
-    <property>engines/engine/cranking</property>
-    <not>
-     <property>engines/engine/running</property>
-    </not>
-   </condition>
-   <position>
-    <x>-1.0</x>
-    <y>0.0</y>
-    <z>0.0</z>
-   </position>
-   <volume>
-    <offset>0.5</offset>
-   </volume>
-  </crank>
+		<crank>
+			<name>crank</name>
+			<mode>looped</mode>
+			<path>Sounds/cranking.wav</path>
+			<condition>
+				<property>engines/engine/cranking</property>
+				<not>
+					<property>engines/engine/running</property>
+				</not>
+			</condition>
+			<position>
+				<x>-1.0</x>
+				<y>0.0</y>
+				<z>0.0</z>
+			</position>
+   			<volume>
+                <factor>0.7143</factor>
+                <property>/sim/model/pa38/sound/volume-boost-doors</property>
+            </volume>
+			<volume>
+				<offset>0.5</offset>
+			</volume>
+		</crank>
 
-  <crank>
-   <name>cough</name>
-   <path>Sounds/coughing.wav</path>
-   <property>engines/engine/running</property>
-   <position>
-    <x>-1.0</x>
-    <y>0.0</y>
-    <z>0.0</z>
-   </position>
-   <volume>
-    <offset>0.3</offset>
-   </volume>
-  </crank>
+        <crank>
+            <name>cough</name>
+            <path>Sounds/coughing.wav</path>
+            <property>/engines/engine[0]/running</property>
+            <position>
+                <x>-1.0</x>
+                <y>0.0</y>
+                <z>0.0</z>
+            </position>
+            <volume>
+                <factor>0.7143</factor>
+                <property>/sim/model/pa38/sound/volume-boost-doors</property>
+            </volume>
+            <volume>
+                <offset>0.0592</offset>
+            </volume>
+            <reference-dist>5.0</reference-dist>
+            <max-dist>200.0</max-dist>
+        </crank>
 
-  <engine>
-    <name>engine</name>
-    <mode>looped</mode>
-    <path>Sounds/Continental-O-320.wav</path>
-    <property>/engines/engine/running</property>
-    <volume>
-      <property>/engines/engine/mp-osi</property>
-      <factor>0.027777</factor>
-      <!-- these values of min and max are unlikely to be relevant,
-           because the MAP is unlikely to go below 5" or above 28".
-           Also note that propeller noise is additional to engine
-           noise, rather like an <offset>.
-             -->
-      <max>1.8</max>
-      <min>0.9</min>
-    </volume>
-    <pitch>
-      <property>/engines/engine/rpm</property>
-      <factor>0.0008</factor>
-      <min>0.3</min>
-      <max>1.8</max>
-      <offset>0.15</offset>
-    </pitch>
-  </engine>
+        <crank>
+            <name>killed</name>
+            <path>Sounds/coughing.wav</path>
+            <property>/sim/model/pa38/sound/click-coughing-engine-sound</property>
+            <position>
+                <x>-1.0</x>
+                <y>0.0</y>
+                <z>0.0</z>
+            </position>
+            <volume>
+                <factor>0.7143</factor>
+                <property>/sim/model/pa38/sound/volume-boost-doors</property>
+            </volume>
+            <volume>
+                <offset>0.0592</offset>
+            </volume>
+            <reference-dist>5.0</reference-dist>
+            <max-dist>200.0</max-dist>
+        </crank>
+		
+		<engine>
+			<name>engine</name>
+			<mode>looped</mode>
+			<path>Sounds/Continental-O-320.wav</path>
+			<property>/engines/engine/running</property>
+			<volume>
+                <factor>0.7143</factor>
+                <property>/sim/model/pa38/sound/volume-boost-doors</property>
+            </volume>
+			<volume>
+				<offset>0.5857</offset>
+			</volume>
+			<pitch>
+				<property>/engines/engine/rpm</property>
+				<factor>0.0010</factor>
+				<min>0.0</min>
+				<max>2.5</max>
+				<offset>0.01</offset>
+			</pitch>
+		</engine>
 
-  <propeller>
-    <name>propeller</name>
-    <mode>looped</mode>
-    <path>Sounds/wasp.wav</path>
-    <condition>
-      <greater-than>
-        <property>/engines/engine/rpm</property>
-        <value>10</value>
-      </greater-than>
-    </condition>
-    <volume>
-      <property>/engines/engine/rpm</property>
-      <factor>0.0001</factor>
-      <max>0.25</max>
-    </volume>
-    <pitch>
-      <property>/engines/engine/rpm</property>
-      <factor>0.0004</factor>
-      <min>0.0</min>
-      <max>2.0</max>
-      <offset>0.01</offset>
-    </pitch>
-  </propeller> 
+		<propeller>
+			<name>propeller</name>
+			<mode>looped</mode>
+			<path>Sounds/wasp.wav</path>
+			<condition>
+				<greater-than>
+					<property>/engines/engine/rpm</property>
+					<value>10</value>
+				</greater-than>
+			</condition>
+			<volume>
+				<property>/engines/engine/rpm</property>
+				<factor>0.0001</factor>
+				<max>0.25</max>
+			</volume>
+			<volume>
+                <factor>0.7143</factor>
+                <property>/sim/model/pa38/sound/volume-boost-doors</property>
+            </volume>
+			<pitch>
+				<property>/engines/engine/rpm</property>
+				<factor>0.0004</factor>
+				<min>0.0</min>
+				<max>2.0</max>
+				<offset>0.01</offset>
+			</pitch>
+		</propeller> 
 
+        <engine-cut>
+            <name>engine-cut</name>
+            <mode>once</mode>
+            <path>Sounds/engine-cut.wav</path>
+            <condition>
+                <and>
+                    <not>
+                        <property>/engines/engine/running</property>
+                    </not>
+                    <greater-than>
+                        <property>/engines/engine/egt-degf</property>
+                        <value>800</value>
+                    </greater-than>
+                </and>
+            </condition>
+			<volume>
+                <factor>0.7143</factor>
+                <property>/sim/model/pa38/sound/volume-boost-doors</property>
+            </volume>
+            <volume>
+                <offset>0.3</offset>
+            </volume>
+            <reference-dist>5.0</reference-dist>
+            <max-dist>200.0</max-dist>
+        </engine-cut>
+		
   <rumble>
    <name>rumble</name>
    <mode>looped</mode>
@@ -180,50 +240,37 @@
             <max-dist>20.0</max-dist>
         </flap>
 
-<!--  <wind>
-   <name>wind</name>
-   <mode>looped</mode>
-   <path>Sounds/wind.wav</path>
-   <condition>
-    <and>
-     <property>velocities/airspeed-kt</property>
-     <property>sim/current-view/internal</property>
-    </and>
-   </condition>
-   <volume>
-    <property>position/altitude-ft</property>
-    <factor>-0.000015</factor>
-    <offset>1.0</offset>
-    <min>0.1</min>
-    <max>1.0</max>
-   </volume>
-   <volume>
-     <property>velocities/airspeed-kt</property>
-     <factor>0.0015</factor>
-     <min>0.03</min>
-     <max>0.25</max>
-   </volume>
-   <pitch>
-    <property>velocities/airspeed-kt</property>
-    <factor>0.0035</factor>
-    <offset>1.25</offset>
-   </pitch>
-  </wind> -->
+          <fuel-pump>
+            <name>fuel-pump</name>
+            <mode>looped</mode>
+            <path>Sounds/fuel-pump.wav</path>
+            <property>controls/fuel/tank[0]/boost-pump</property>
+            <position>
+                <x>0.5</x>
+                <y>0.0</y>
+                <z>0.5</z>
+            </position>
+            <volume>
+                <factor>1.0</factor>
+            </volume>
+            <reference-dist>10.0</reference-dist>
+            <max-dist>20.0</max-dist>
+        </fuel-pump>
         
         <switch>
-            <name>click-master-bat-switch</name>
+            <name>click-master-batt-switch</name>
             <mode>once</mode>
             <path>Sounds/click.wav</path>
             <condition>
-                <property>/sim/model/pa38/sound/click-master-bat</property>
+                <property>/sim/model/pa38/sound/click-master-batt</property>
             </condition>
             <position>
                 <x>-0.3660</x>
                 <y>0.3350</y>
                 <z>-0.3500</z>
             </position>
-            <reference-dist>2.2</reference-dist>
-            <max-dist>5.0</max-dist>
+            <reference-dist>20.2</reference-dist>
+            <max-dist>50.0</max-dist>
         </switch>
   
         <switch>
@@ -238,8 +285,8 @@
                 <y>0.3350</y>
                 <z>-0.3500</z>
             </position>
-            <reference-dist>2.2</reference-dist>
-            <max-dist>5.0</max-dist>
+            <reference-dist>20.2</reference-dist>
+            <max-dist>50.0</max-dist>
         </switch>
 
         <switch>
@@ -254,8 +301,8 @@
                 <y>0.3350</y>
                 <z>-0.3500</z>
             </position>
-            <reference-dist>0.8</reference-dist>
-            <max-dist>5.0</max-dist>
+            <reference-dist>20.8</reference-dist>
+            <max-dist>50.0</max-dist>
         </switch>
 
         <switch>
@@ -270,8 +317,8 @@
                 <y>0.3350</y>
                 <z>-0.3500</z>
             </position>
-            <reference-dist>0.8</reference-dist>
-            <max-dist>5.0</max-dist>
+            <reference-dist>20.8</reference-dist>
+            <max-dist>50.0</max-dist>
         </switch>
 
         <switch>
@@ -286,8 +333,8 @@
                 <y>0.3350</y>
                 <z>-0.3500</z>
             </position>
-            <reference-dist>0.8</reference-dist>
-            <max-dist>5.0</max-dist>
+            <reference-dist>20.8</reference-dist>
+            <max-dist>50.0</max-dist>
         </switch>
 
         <switch>
@@ -302,8 +349,8 @@
                 <y>0.3350</y>
                 <z>-0.3500</z>
             </position>
-            <reference-dist>0.8</reference-dist>
-            <max-dist>5.0</max-dist>
+            <reference-dist>20.8</reference-dist>
+            <max-dist>50.0</max-dist>
         </switch>
 
         <switch>
@@ -318,8 +365,8 @@
                 <y>0.3350</y>
                 <z>-0.3500</z>
             </position>
-            <reference-dist>1.2</reference-dist>
-            <max-dist>5.0</max-dist>
+            <reference-dist>20.2</reference-dist>
+            <max-dist>50.0</max-dist>
         </switch>
 		
         <switch>
@@ -334,8 +381,8 @@
                 <y>-0.1200</y>
                 <z>-0.0300</z>
             </position>
-            <reference-dist>0.2</reference-dist>
-            <max-dist>5.0</max-dist>
+            <reference-dist>20.2</reference-dist>
+            <max-dist>50.0</max-dist>
         </switch>
 
         <dial>
@@ -350,8 +397,8 @@
                 <y>-0.1200</y>
                 <z>-0.0300</z>
             </position>
-            <reference-dist>0.5</reference-dist>
-            <max-dist>5.0</max-dist>
+            <reference-dist>20.5</reference-dist>
+            <max-dist>50.0</max-dist>
             <volume>
                 <factor>1.0</factor>
             </volume>
@@ -366,11 +413,17 @@
             </condition>
             <position>
                 <x>-0.3660</x>
-                <y>0.3700</y>
+                <y>0.3350</y>
                 <z>-0.3500</z>
             </position>
-            <reference-dist>3.2</reference-dist>
-            <max-dist>5.0</max-dist>
+            <volume>
+                <factor>1.0</factor>
+            </volume>
+            <reference-dist>20.2</reference-dist>
+            <max-dist>50.0</max-dist>
+            <volume>
+                <factor>1.5</factor>
+            </volume>
 		</switch>
 
         <switch>
@@ -382,11 +435,14 @@
             </condition>
             <position>
                 <x>-0.3660</x>
-                <y>0.3700</y>
+                <y>0.3350</y>
                 <z>-0.3500</z>
             </position>
-            <reference-dist>3.2</reference-dist>
-            <max-dist>5.0</max-dist>
+            <reference-dist>20.2</reference-dist>
+            <max-dist>50.0</max-dist>
+            <volume>
+                <factor>1.0</factor>
+            </volume>
         </switch>
 
         <left-door-opening>
@@ -400,11 +456,11 @@
                 </greater-than>
             </condition>
             <position>
-                <x>0.75</x>
+                <x>2.15</x>
                 <y>0.6</y>
-                <z>-0.35</z>
+                <z>0.19</z>
             </position>
-            <reference-dist>1.5</reference-dist>
+            <reference-dist>20.5</reference-dist>
             <max-dist>50.0</max-dist>
         </left-door-opening>
 
@@ -419,11 +475,11 @@
                 </less-than>
             </condition>
             <position>
-                <x>0.75</x>
+                <x>2.15</x>
                 <y>0.6</y>
-                <z>-0.35</z>
+                <z>0.19</z>
             </position>
-            <reference-dist>1.5</reference-dist>
+            <reference-dist>20.5</reference-dist>
             <max-dist>50.0</max-dist>
         </left-door-closing>
 
@@ -438,11 +494,11 @@
                 </greater-than>
             </condition>
             <position>
-                <x>0.75</x>
+                <x>2.15</x>
                 <y>-0.6</y>
-                <z>-0.35</z>
+                <z>0.19</z>
             </position>
-            <reference-dist>1.5</reference-dist>
+            <reference-dist>20.5</reference-dist>
             <max-dist>50.0</max-dist>
         </right-door-opening>
 
@@ -457,9 +513,9 @@
                 </less-than>
             </condition>
             <position>
-                <x>0.75</x>
+                <x>2.15</x>
                 <y>-0.6</y>
-                <z>-0.35</z>
+                <z>0.19</z>
             </position>
             <reference-dist>1.5</reference-dist>
             <max-dist>50.0</max-dist>
@@ -489,15 +545,15 @@
                 <property>/controls/engines/engine/primer-lever</property>
             </condition>
             <volume>
-                <factor>0.32</factor>
+                <factor>1.52</factor>
             </volume>
             <position>
-                <x>-0.3660</x>
-                <y>0.3700</y>
-                <z>-0.3500</z>
+                <x>1.82358</x>
+                <y>-0.1000</y>
+                <z>-0.1000</z>
             </position>
-            <reference-dist>3.5</reference-dist>
-            <max-dist>5.0</max-dist>
+            <reference-dist>20.5</reference-dist>
+            <max-dist>50.0</max-dist>
         </switch>
 
         <switch>
@@ -510,44 +566,88 @@
                 </not>
             </condition>
             <volume>
-                <factor>0.32</factor>
+                <factor>1.52</factor>
             </volume>
             <position>
-                <x>-0.3660</x>
-                <y>0.3700</y>
-                <z>-0.3500</z>
+                <x>1.82358</x>
+                <y>-0.1000</y>
+                <z>-0.1000</z>
             </position>
-            <reference-dist>3.5</reference-dist>
+            <reference-dist>20.5</reference-dist>
+            <max-dist>50.0</max-dist>
+        </switch>
+
+        <switch>
+            <name>click-parking-brake</name>
+            <mode>once</mode>
+            <path>Sounds/lever.wav</path>
+            <condition>
+                <property>/controls/gear/brake-parking</property>
+            </condition>
+            <volume>
+                <factor>1.90</factor>
+            </volume>
+            <position>
+                <x>1.82358</x>
+                <y>-0.1000</y>
+                <z>-0.1000</z>
+            </position>
+            <reference-dist>30.5</reference-dist>
+            <max-dist>80.0</max-dist>
+        </switch>
+
+        <switch>
+            <name>click-parking-brake-dn</name>
+            <mode>once</mode>
+            <path>Sounds/flaplever.wav</path>
+            <condition>
+                <not>
+					<property>/controls/gear/brake-parking</property>
+				</not>
+            </condition>
+            <volume>
+                <factor>0.1</factor>
+            </volume>
+            <position>
+                <x>1.82358</x>
+                <y>-0.1000</y>
+                <z>-0.1000</z>
+            </position>
+            <reference-dist>5.5</reference-dist>
             <max-dist>5.0</max-dist>
         </switch>
 
-  <stall>
-   <name>stall</name>
-   <mode>looped</mode>
-   <type>avionics</type>
-   <path>Sounds/stall.wav</path>
-   <condition>
-    <and>
-     <property>sim/alarms/stall-warning</property>
-     <greater-than>
-       <property>velocities/airspeed-kt</property>
-       <value>10</value>
-     </greater-than>
-     <not>
-       <property>gear/gear[0]/wow</property>
-       <property>gear/gear[1]/wow</property>
-       <property>gear/gear[2]/wow</property>
-     </not>
-    </and>
-   </condition>
-   <volume>
-    <property>sim/alarms/stall-warning</property>
-    <max>1.0</max>
-   </volume>
-   <reference-dist>10.0</reference-dist>
-   <max-dist>20.0</max-dist>
-  </stall>
+        <stall>
+            <name>stall</name>
+            <mode>looped</mode>
+            <path>Sounds/stall.wav</path>
+            <condition>
+                <and>
+                    <greater-than>
+                        <property>velocities/airspeed-kt</property>
+                        <value>10</value>
+                    </greater-than>
+                    <not>
+                        <property>gear/gear[0]/wow</property>
+                    </not>
+                </and>
+            </condition>
+            <position>
+                <x>1.82358</x>
+                <y>-0.1000</y>
+                <z>-0.1000</z>
+            </position>
+            <volume>
+                <property>/fdm/jsbsim/sounds/stall-horn-volume-actual</property>
+            </volume>
+            <pitch>
+                <property>/fdm/jsbsim/sounds/stall-horn-pitch-actual</property>
+                <offset>0.0</offset>
+            </pitch>
+            <reference-dist>0.5</reference-dist>
+            <max-dist>50.0</max-dist>
+        </stall>
  
-</fx>
+	</fx>
  
 </PropertyList>

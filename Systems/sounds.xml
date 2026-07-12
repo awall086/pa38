@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Copyright (c) 2015 onox
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<PropertyList>
+
+    <params>
+        <doors>
+            <right>/sim/multiplay/generic/float[0]</right>
+			<left>/sim/multiplay/generic/float[1]</left>
+        </doors>
+    </params>
+
+    <!-- Return a factor (>= 1.0) to boost the volume when one or both
+         doors are open.
+    -->
+    <filter>
+        <name>Volume Boost Doors Factor</name>
+        <type>gain</type>
+        <input>
+            <condition>
+                <property>/sim/current-view/internal</property>
+            </condition>
+            <expression>
+                    <product>
+						<min>
+                            <sum>
+                                <!-- Left window fully open is 1.0. Fully closed is 0.0 -->
+                                <table>
+                                    <property alias="/params/doors/left"/>
+                                    <entry><ind>0.0</ind><dep>0.0</dep></entry>
+                                    <entry><ind>0.5</ind><dep>0.35</dep></entry>
+                                    <entry><ind>1.0</ind><dep>0.7</dep></entry>
+                                </table>
+
+                                <!-- Right door fully open is 1.0. Fully closed is 0.0 -->
+                                <table>
+                                    <property alias="/params/doors/right"/>
+                                    <entry><ind>0.0</ind><dep>0.0</dep></entry>
+                                    <entry><ind>0.5</ind><dep>0.35</dep></entry>
+                                    <entry><ind>1.0</ind><dep>0.7</dep></entry>
+                                </table>
+
+                            </sum>
+							<value>1.0</value>
+						</min>
+                        <value>1.4</value>
+                    </product>
+            </expression>
+        </input>
+        <input>
+            <!-- 60 % extra volume if outside the aircraft -->
+            <value>1.6</value>
+        </input>
+        <output>
+            <property>/sim/model/pa38/sound/volume-boost-doors</property>
+        </output>
+    </filter>
+
+</PropertyList>
